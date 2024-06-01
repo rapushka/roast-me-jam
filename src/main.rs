@@ -60,6 +60,10 @@ fn main() {
             start_game,
         ))
 
+        .add_systems(Update, (
+            despawn_not_in_state,
+        ))
+
         .run();
 }
 
@@ -78,3 +82,16 @@ fn spawn_camera(
     ;
 }
 
+pub fn despawn_not_in_state(
+    mut transitions: EventReader<StateTransitionEvent<AppState>>,
+    mut entities: Query<(Entity, &OnAppState)>,
+    mut commands: Commands,
+) {
+    for transition in transitions.read() {
+        for (entity, on_state) in &mut entities {
+            if on_state.0 != transition.after {
+                commands.entity(entity).despawn_recursive();
+            }
+        }
+    }
+}

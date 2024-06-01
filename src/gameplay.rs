@@ -16,7 +16,6 @@ impl Plugin for GameplayPlugin {
                 BackgroundPlugin,
                 GameplayLoopPlugin
             ))
-
         ;
     }
 }
