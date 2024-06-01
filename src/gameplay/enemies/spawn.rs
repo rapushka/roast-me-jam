@@ -39,10 +39,10 @@ pub fn spawn_default_enemy(
         commands.add(AddAnimationCommand {
             entity,
             frames_count: 2,
-            path_to_atlas: "sprites/default_enemy_atlas.png",
-            fps: 4.0,
-            layout: TextureAtlasLayout::from_grid(Vec2::new(125.0, 250.0), 2, 1, None, None),
-            transform: Transform::from_translation(start_position).with_scale(Vec3::splat(0.5)),
+            path_to_atlas: "sprites/casual_enemy_atlas.png",
+            fps: 2.0,
+            layout: TextureAtlasLayout::from_grid(Vec2::new(1024.0, 2048.0), 2, 1, None, None),
+            transform: Transform::from_translation(start_position).with_scale(Vec3::splat(0.1)),
         });
     }
 }

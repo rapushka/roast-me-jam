@@ -45,6 +45,7 @@ fn start_planting(
     mut next_state: ResMut<NextState<PlantingState>>,
 ) {
     for e in clicked_event.read() {
+        
         if let Ok(clicked_seed) = seeds.get(e.0) {
             if let Some(previous_plant_type) = selected_seed.0 {
                 if previous_plant_type == clicked_seed.0 {
