@@ -16,6 +16,7 @@ mod animations;
 mod field;
 mod movement;
 mod seeds;
+mod plants;
 
 pub struct GameplayPlugin;
 
