@@ -3,7 +3,7 @@ use bevy::prelude::*;
 mod fire_plant;
 
 #[derive(Event)]
-pub struct SpawnPlant(PlantType);
+pub struct SpawnPlant(pub PlantType);
 
 #[derive(Component)]
 pub struct Plant(pub PlantType);
