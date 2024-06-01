@@ -1,5 +1,6 @@
 use bevy::prelude::*;
-use crate::gameplay::enemies::components::{Enemy, EnemyType};
+
+use crate::gameplay::enemies::components::Enemy;
 use crate::GameState;
 
 #[derive(Component)]
