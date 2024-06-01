@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use crate::constants;
 use crate::controls::Clickable;
 use crate::gameplay::field::Field;
+use crate::gameplay::plants::PlantType;
 use crate::gameplay::seeds::components::SeedSlot;
 
 pub fn spawn_seeds_slots(
@@ -13,7 +14,7 @@ pub fn spawn_seeds_slots(
     let screen_center = field.seed_slots_position;
 
     let position = screen_center;
-    commands.add(SpawnSeedsSlotCommand { position, seed: None });
+    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Fire) });
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: None });
     let position = position + Vec2::new(100.0, 0.0);
@@ -22,7 +23,7 @@ pub fn spawn_seeds_slots(
 
 struct SpawnSeedsSlotCommand {
     pub position: Vec2,
-    pub seed: Option<Entity>,
+    pub seed: Option<PlantType>,
 }
 
 impl Command for SpawnSeedsSlotCommand {
