@@ -32,6 +32,6 @@ fn spawn_background(
             texture: asset_server.load("sprites/background.png"),
             ..default()
         })
-        .insert(Transform::from_translation(position).with_scale(Vec3::splat(1.2)))
+        .insert(Transform::from_translation(position).with_scale(Vec3::splat(1.0)))
     ;
 }
