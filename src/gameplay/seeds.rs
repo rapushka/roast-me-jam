@@ -17,7 +17,10 @@ impl Plugin for SeedsPlugin {
                 spawn_seeds_slots,
             ))
 
-            .add_systems(Update, fill_seed_slots)
+            .add_systems(Update, (
+                fill_seed_slots,
+                seed_preview
+            ).chain())
         ;
     }
 }

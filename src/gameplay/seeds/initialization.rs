@@ -4,7 +4,7 @@ use bevy::prelude::*;
 use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
 use crate::gameplay::field::Field;
-use crate::gameplay::plants::PlantType;
+use crate::gameplay::plants::{Plant, PlantType};
 use crate::gameplay::seeds::components::{Seed, SeedSlot};
 
 pub fn spawn_seeds_slots(
@@ -67,3 +67,30 @@ pub fn fill_seed_slots(
         }
     }
 }
+
+pub fn seed_preview(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    slots: Query<(Entity, &Seed), Added<Seed>>,
+) {
+    for (entity, seed) in slots.iter() {
+        commands.entity(entity)
+            .with_children(|parent| {
+                parent
+                    .spawn(Name::new("plant preview"))
+                    .insert(Plant(seed.0))
+                    .insert(SpriteBundle {
+                        texture: asset_server.load(get_sprite(seed.0)),
+                        transform: Transform::from_translation(Vec3::new(0.0, 10.0, 1.0)).with_scale(Vec3::splat(0.5)),
+                        ..default()
+                    })
+                ;
+            });
+    }
+}
+
+pub fn get_sprite(plant_type: PlantType) -> &'static str {
+    match plant_type {
+        PlantType::Fire => "sprites/plants/fire_2.png"
+    }
+} 

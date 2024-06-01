@@ -6,7 +6,7 @@ mod fire_plant;
 pub struct SpawnPlant(PlantType);
 
 #[derive(Component)]
-pub struct Plant(PlantType);
+pub struct Plant(pub PlantType);
 
 #[derive(PartialEq, Clone, Copy)]
 pub enum PlantType {
