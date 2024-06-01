@@ -23,7 +23,7 @@ pub fn init_field(
     let center_x = window.width() / 2.0;
     let center_y = window.height() / 2.0;
 
-    let bounds = Aabb2d { min: Vec2::new(175.0, 100.0), max: Vec2::new(910.0, 600.0) };
+    let bounds = Aabb2d { min: Vec2::new(175.0, 120.0), max: Vec2::new(910.0, 560.0) };
     let screen_center = Vec3::new(center_x, center_y, 0.0);
 
     commands.insert_resource(Field {

@@ -3,6 +3,7 @@ use std::ops::Range;
 
 use bevy::prelude::*;
 use rand;
+use rand::Rng;
 
 use crate::{AppState, OnAppState};
 use crate::gameplay::animations::AddAnimationCommand;
@@ -31,9 +32,9 @@ pub fn spawn_default_enemy(
         }
 
         let y_range = field.zombie_spawn_y_range.clone();
-        let random_point_y = y_range.delta() * rand::random::<f32>();
+        let mut rng = rand::thread_rng();
+        let y = rng.gen_range(y_range);
 
-        let y = y_range.start + random_point_y;
         let start_position = Vec3::new(field.zombies_spawn_x, y, 0.0);
 
         let entity = commands.spawn(Name::new("enemy"))
