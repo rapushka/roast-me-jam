@@ -40,7 +40,6 @@ impl Command for SpawnSeedsSlotCommand {
                 transform: Transform::from_translation(pos),
                 ..default()
             })
-            .insert(Clickable)
         ;
     }
 }

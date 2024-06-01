@@ -47,19 +47,19 @@ fn mouse_position_to_world(
 fn track_mouse_clicks(
     input: Res<Input>,
     mut clicked_event: EventWriter<Clicked>,
-    clickable_entities: Query<(Entity, &Aabb, &Transform), With<Clickable>>,
+    clickable_entities: Query<(Entity, &Aabb, &GlobalTransform), With<Clickable>>,
 ) {
     if !input.left_click {
         return;
     }
 
     if let Some(cursor_position) = input.mouse_world_position {
-        for (entity, aabb, transform) in clickable_entities.iter() {
+        for (entity, aabb, global_transform) in clickable_entities.iter() {
             let min: Vec3 = aabb.min().into();
             let max: Vec3 = aabb.max().into();
 
-            let min = min + transform.translation;
-            let max = max + transform.translation;
+            let min = min + global_transform.translation();
+            let max = max + global_transform.translation();
 
             let intersects = cursor_position.x >= min.x && cursor_position.y >= min.y
                 && cursor_position.x <= max.x && cursor_position.y <= max.y;
