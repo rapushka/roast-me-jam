@@ -13,6 +13,7 @@ pub struct Field {
     pub player_house_x: f32,
     pub plants_bounds: Aabb2d,
     pub screen_center: Vec3,
+    pub seed_slots_position: Vec2,
 }
 
 pub fn init_field(
@@ -26,11 +27,14 @@ pub fn init_field(
     let bounds = Aabb2d { min: Vec2::new(175.0, 120.0), max: Vec2::new(910.0, 560.0) };
     let screen_center = Vec3::new(center_x, center_y, 0.0);
 
+    let seed_slots_position = Vec2::new(50.0, window.height() - 75.0);
+    
     commands.insert_resource(Field {
         zombies_spawn_x: window.width() + constants::ZOMBIE_SPAWN_POINT_OFFSET,
         zombie_spawn_y_range: Range { start: bounds.min.y, end: bounds.max.y },
         player_house_x: 0.0 - constants::ZOMBIE_SPAWN_POINT_OFFSET,
         plants_bounds: bounds,
         screen_center,
+        seed_slots_position,
     });
 }

@@ -7,6 +7,7 @@ use crate::gameplay::enemies::EnemiesPlugin;
 use crate::gameplay::field::init_field;
 use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
 use crate::gameplay::movement::MovementPlugin;
+use crate::gameplay::seeds::*;
 
 pub(crate) mod gameplay_loop;
 mod background;
@@ -14,6 +15,7 @@ mod enemies;
 mod animations;
 mod field;
 mod movement;
+mod seeds;
 
 pub struct GameplayPlugin;
 
@@ -25,6 +27,7 @@ impl Plugin for GameplayPlugin {
                 GameplayLoopPlugin,
                 EnemiesPlugin,
                 MovementPlugin,
+                SeedsPlugin,
             ))
 
             .add_systems(OnEnter(AppState::Loading), init_field)

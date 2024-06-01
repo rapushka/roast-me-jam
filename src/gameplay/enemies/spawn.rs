@@ -27,7 +27,7 @@ pub fn spawn_default_enemy(
         let y_range = field.zombie_spawn_y_range.clone();
         let y = rng.gen_range(y_range);
 
-        let start_position = Vec3::new(field.zombies_spawn_x, y, 0.0);
+        let start_position = Vec3::new(field.zombies_spawn_x, y, constants::z_order::ENEMIES);
         let speed = rng.gen_range(constants::CASUAL_ZOMBIE_MOVEMENT_SPEED);
 
         let entity = commands.spawn(Name::new("enemy"))

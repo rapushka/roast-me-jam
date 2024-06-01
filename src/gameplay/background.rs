@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{AppState, OnAppState};
+use crate::{AppState, constants, OnAppState};
 use crate::gameplay::field::Field;
 
 pub struct BackgroundPlugin;
@@ -24,7 +24,7 @@ fn spawn_background(
     let position = Vec3 {
         x: screen_center.x,
         y: screen_center.y,
-        z: -10.0,
+        z: constants::z_order::BACKGROUND,
     };
     commands.spawn(Name::new("background"))
         .insert(OnAppState(AppState::Gameplay))
