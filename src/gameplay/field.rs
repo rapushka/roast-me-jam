@@ -23,6 +23,7 @@ pub fn init_field(
 
     let screen_center = Vec3::new(center_x, center_y, 0.0);
 
+    println!("{}", window.width());
     commands.insert_resource(Field {
         zombies_spawn_x: window.width() + constants::ZOMBIE_SPAWN_POINT_OFFSET,
         player_house_x: 0.0 - constants::ZOMBIE_SPAWN_POINT_OFFSET,

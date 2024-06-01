@@ -33,6 +33,7 @@ pub struct AddAnimationCommand {
     pub layout: TextureAtlasLayout,
     pub frames_count: usize,
     pub fps: f32,
+    pub transform: Transform,
 }
 
 impl Command for AddAnimationCommand {
@@ -47,9 +48,10 @@ impl Command for AddAnimationCommand {
                 .insert(SpriteSheetBundle {
                     texture,
                     atlas: TextureAtlas {
-                        layout: layout,
+                        layout,
                         index: animation_indices.first,
                     },
+                    transform: self.transform,
                     ..default()
                 })
                 .insert(AnimationTimer(Timer::from_seconds(1.0 / self.fps, TimerMode::Repeating)))
