@@ -1,6 +1,8 @@
 use std::cmp::PartialEq;
+use std::ops::Range;
 
 use bevy::prelude::*;
+use rand;
 
 use crate::{AppState, OnAppState};
 use crate::gameplay::animations::AddAnimationCommand;
@@ -28,8 +30,11 @@ pub fn spawn_default_enemy(
             continue;
         }
 
-        let start_position = Vec3::new(field.zombies_spawn_x, 0.0, 0.0);
-        println!("{}", start_position);
+        let y_range = field.zombie_spawn_y_range.clone();
+        let random_point_y = y_range.delta() * rand::random::<f32>();
+
+        let y = y_range.start + random_point_y;
+        let start_position = Vec3::new(field.zombies_spawn_x, y, 0.0);
 
         let entity = commands.spawn(Name::new("enemy"))
             .insert(Enemy(enemy_type))
@@ -44,5 +49,15 @@ pub fn spawn_default_enemy(
             layout: TextureAtlasLayout::from_grid(Vec2::new(125.0, 250.0), 2, 1, None, None),
             transform: Transform::from_translation(start_position).with_scale(Vec3::splat(0.5)),
         });
+    }
+}
+
+trait RangeExt {
+    fn delta(&self) -> f32;
+}
+
+impl RangeExt for Range<f32> {
+    fn delta(&self) -> f32 {
+        self.end - self.start
     }
 }
