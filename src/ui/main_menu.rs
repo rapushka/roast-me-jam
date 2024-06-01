@@ -69,7 +69,7 @@ pub fn on_play_button_clicked(
 ) {
     for event in event_reader.read() {
         if let Ok(_) = buttons.get(event.0) {
-            // next_state.set(AppState::LevelSelection);
+            next_state.set(AppState::Gameplay);
         }
     }
 }

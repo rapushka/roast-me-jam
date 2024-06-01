@@ -5,6 +5,7 @@ use crate::ui::UiPlugin;
 
 mod constants;
 mod ui;
+mod gameplay;
 
 #[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
 pub enum Order {
