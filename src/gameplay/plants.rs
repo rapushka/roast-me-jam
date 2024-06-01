@@ -21,8 +21,6 @@ impl Plugin for PlantsPlugin {
         app
             .add_event::<SpawnPlant>()
 
-            .add_systems(Update, test_spawn) // TODO: REMOVE ME PLZ
-            
             .add_systems(Update, (
                 fire_plant::spawn,
             )

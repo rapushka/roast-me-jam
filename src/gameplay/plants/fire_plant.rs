@@ -1,18 +1,9 @@
-use bevy::input::ButtonInput;
 use bevy::prelude::*;
+
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::utils::Vec2Ext;
-
-pub fn test_spawn(
-    buttons: Res<ButtonInput<KeyCode>>,
-    mut event: EventWriter<SpawnPlant>,
-) {
-    if buttons.just_pressed(KeyCode::KeyF) {
-        event.send(SpawnPlant(PlantType::Fire));
-    }
-}
 
 pub fn spawn(
     mut commands: Commands,
