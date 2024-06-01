@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 
 use crate::gameplay::background::BackgroundPlugin;
+use crate::gameplay::enemies::EnemiesPlugin;
 use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
 
 mod gameplay_loop;
@@ -14,7 +15,8 @@ impl Plugin for GameplayPlugin {
         app
             .add_plugins((
                 BackgroundPlugin,
-                GameplayLoopPlugin
+                GameplayLoopPlugin,
+                EnemiesPlugin,
             ))
         ;
     }

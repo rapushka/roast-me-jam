@@ -5,14 +5,14 @@ use crate::{AppState, OnAppState};
 
 #[derive(PartialEq, Clone, Copy)]
 pub enum EnemyType {
-    Default,
+    Casual,
 }
 
 #[derive(Component)]
 pub struct Enemy(EnemyType);
 
 #[derive(Event)]
-pub struct SpawnEnemy(EnemyType);
+pub struct SpawnEnemy(pub EnemyType);
 
 pub fn spawn_default_enemy(
     mut commands: Commands,
@@ -21,7 +21,7 @@ pub fn spawn_default_enemy(
 ) {
     for e in event_reader.read() {
         let enemy_type = e.0.clone();
-        if enemy_type != EnemyType::Default {
+        if enemy_type != EnemyType::Casual {
             continue;
         }
 
