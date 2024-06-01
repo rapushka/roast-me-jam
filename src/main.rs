@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_editor_pls::EditorPlugin;
 use bevy_text_animation::TextAnimatorPlugin;
+use crate::gameplay::GameplayPlugin;
 use crate::ui::UiPlugin;
 
 mod constants;
@@ -51,6 +52,7 @@ fn main() {
         .add_plugins((
             // Game
             UiPlugin,
+            GameplayPlugin,
         ))
 
         .add_systems(OnEnter(AppState::Loading), (

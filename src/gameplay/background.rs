@@ -21,7 +21,7 @@ fn spawn_background(
     commands.spawn(Name::new("background"))
         .insert(OnAppState(AppState::Gameplay))
         .insert(SpriteBundle {
-            texture: asset_server.load("sprites/background.jpg"),
+            texture: asset_server.load("sprites/background.png"),
             ..default()
         })
     ;
