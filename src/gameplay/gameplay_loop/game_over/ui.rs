@@ -8,7 +8,6 @@ pub fn build_game_over_screen(
     asset_server: Res<AssetServer>,
     mut game_over_event: EventReader<GameOver>,
 ) {
-    println!("len: {}", game_over_event.len());
     for e in game_over_event.read() {
         let text = format!("You lost:(\nbecause of: {}", e.0);
 

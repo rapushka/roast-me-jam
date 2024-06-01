@@ -44,8 +44,7 @@ fn on_game_over(
     mut event: EventReader<GameOver>,
     mut next_state: ResMut<NextState<GameState>>,
 ) {
-    for e in event.read() {
-        println!("died cuz: {}", e.0);
+    for _ in event.read() {
         next_state.set(GameState::GameOver);
     }
 }
