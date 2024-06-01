@@ -1,8 +1,8 @@
 use bevy::input::ButtonInput;
-use bevy::math::bounding::Aabb2d;
 use bevy::prelude::*;
 use bevy::render::primitives::Aabb;
 use bevy::window::PrimaryWindow;
+
 use crate::ui::Clicked;
 
 #[derive(Component)]
@@ -15,8 +15,7 @@ impl Plugin for ControlsPlugin {
         app
             .add_systems(Update, (
                 track_mouse_clicks,
-                log_clicked,
-            ).chain())
+            ))
         ;
     }
 }
@@ -48,17 +47,6 @@ fn track_mouse_clicks(
             if intersects {
                 clicked_event.send(Clicked(entity));
             }
-        }
-    }
-}
-
-fn log_clicked(
-    mut clicked_event: EventReader<Clicked>,
-    entities: Query<&Name>,
-) {
-    for e in clicked_event.read() {
-        if let Ok(name) = entities.get(e.0) {
-            println!("clicked on {}!", name);
         }
     }
 }
