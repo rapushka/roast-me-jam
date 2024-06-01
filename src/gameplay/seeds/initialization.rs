@@ -12,13 +12,17 @@ pub fn spawn_seeds_slots(
 ) {
     let screen_center = field.seed_slots_position;
 
-    commands.add(SpawnSeedsSlotCommand { position: screen_center });
-    commands.add(SpawnSeedsSlotCommand { position: screen_center + Vec2::new(100.0, 0.0) });
-    commands.add(SpawnSeedsSlotCommand { position: screen_center + Vec2::new(200.0, 0.0) });
+    let position = screen_center;
+    commands.add(SpawnSeedsSlotCommand { position, seed: None });
+    let position = position + Vec2::new(100.0, 0.0);
+    commands.add(SpawnSeedsSlotCommand { position, seed: None });
+    let position = position + Vec2::new(100.0, 0.0);
+    commands.add(SpawnSeedsSlotCommand { position, seed: None });
 }
 
 struct SpawnSeedsSlotCommand {
     pub position: Vec2,
+    pub seed: Option<Entity>,
 }
 
 impl Command for SpawnSeedsSlotCommand {
@@ -28,7 +32,7 @@ impl Command for SpawnSeedsSlotCommand {
         let pos = Vec3::new(self.position.x, self.position.y, constants::z_order::SEED_SLOT);
 
         world.spawn(Name::new("seed slot"))
-            .insert(SeedSlot(None))
+            .insert(SeedSlot(self.seed))
             .insert(SpriteBundle {
                 texture,
                 transform: Transform::from_translation(pos),
