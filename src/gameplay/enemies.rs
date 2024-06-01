@@ -1,6 +1,8 @@
 use bevy::prelude::*;
-use crate::gameplay::enemies::spawn::{EnemyType, spawn_default_enemy, SpawnEnemy};
+use components::EnemyType;
+use crate::gameplay::enemies::spawn::{spawn_default_enemy, SpawnEnemy};
 
+pub mod components;
 mod spawn;
 
 pub struct EnemiesPlugin;

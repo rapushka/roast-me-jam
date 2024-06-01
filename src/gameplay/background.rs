@@ -20,12 +20,18 @@ fn spawn_background(
     mut commands: Commands,
     field: Res<Field>,
 ) {
+    let screen_center = field.screen_center;
+    let position = Vec3 {
+        x: screen_center.x,
+        y: screen_center.y,
+        z: -10.0,
+    };
     commands.spawn(Name::new("background"))
         .insert(OnAppState(AppState::Gameplay))
         .insert(SpriteBundle {
             texture: asset_server.load("sprites/background.png"),
             ..default()
         })
-        .insert(Transform::from_translation(field.screen_center.into()))
+        .insert(Transform::from_translation(position))
     ;
 }
