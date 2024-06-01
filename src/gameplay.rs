@@ -20,7 +20,7 @@ impl Plugin for GameplayPlugin {
                 GameplayLoopPlugin,
                 EnemiesPlugin,
             ))
-        
+
             .add_systems(Update, animate_sprites)
         ;
     }
