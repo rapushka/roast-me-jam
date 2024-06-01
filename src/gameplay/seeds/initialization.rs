@@ -2,6 +2,7 @@ use bevy::asset::AssetServer;
 use bevy::ecs::system::Command;
 use bevy::prelude::*;
 use crate::constants;
+use crate::controls::Clickable;
 use crate::gameplay::field::Field;
 use crate::gameplay::seeds::components::SeedSlot;
 
@@ -27,12 +28,13 @@ impl Command for SpawnSeedsSlotCommand {
         let pos = Vec3::new(self.position.x, self.position.y, constants::z_order::SEED_SLOT);
 
         world.spawn(Name::new("seed slot"))
+            .insert(SeedSlot(None))
             .insert(SpriteBundle {
                 texture,
                 transform: Transform::from_translation(pos),
                 ..default()
             })
-            .insert(SeedSlot(None))
+            .insert(Clickable)
         ;
     }
 }

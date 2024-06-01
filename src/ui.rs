@@ -17,7 +17,7 @@ pub mod order {
 }
 
 #[derive(Event)]
-pub struct Clicked(Entity);
+pub struct Clicked(pub Entity);
 
 #[derive(Component)]
 pub struct EndGameButton;

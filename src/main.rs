@@ -1,3 +1,4 @@
+use crate::controls::ControlsPlugin;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use bevy_editor_pls::EditorPlugin;
@@ -8,6 +9,7 @@ use crate::ui::UiPlugin;
 mod constants;
 mod ui;
 mod gameplay;
+pub mod controls;
 
 #[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
 pub enum Order {
@@ -55,6 +57,7 @@ fn main() {
             // Game
             UiPlugin,
             GameplayPlugin,
+            ControlsPlugin,
         ))
 
         .add_systems(OnEnter(AppState::Loading), (
