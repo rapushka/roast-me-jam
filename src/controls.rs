@@ -5,9 +5,10 @@ use bevy::window::PrimaryWindow;
 
 use crate::ui::Clicked;
 
-#[derive(Default)]
+#[derive(Resource, Default)]
 pub struct Input {
     pub mouse_world_position: Option<Vec2>,
+    pub left_click: bool,
 }
 
 #[derive(Component)]
@@ -31,6 +32,7 @@ impl Plugin for ControlsPlugin {
 fn mouse_position_to_world(
     mut input: ResMut<Input>,
     windows: Query<&Window, With<PrimaryWindow>>,
+    buttons: Res<ButtonInput<MouseButton>>,
 ) {
     let window = windows.single();
 
@@ -38,15 +40,16 @@ fn mouse_position_to_world(
         Some(cursor_position) => Some(Vec2::new(cursor_position.x, window.height() - cursor_position.y)),
         None => None,
     };
+
+    input.left_click = buttons.just_pressed(MouseButton::Left);
 }
 
 fn track_mouse_clicks(
     input: Res<Input>,
-    buttons: Res<ButtonInput<MouseButton>>,
     mut clicked_event: EventWriter<Clicked>,
     clickable_entities: Query<(Entity, &Aabb, &Transform), With<Clickable>>,
 ) {
-    if !buttons.just_pressed(MouseButton::Left) {
+    if !input.left_click {
         return;
     }
 

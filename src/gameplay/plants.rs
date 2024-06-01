@@ -1,10 +1,15 @@
 use bevy::prelude::*;
+use crate::gameplay::plants::fire_plant::test_spawn;
 
 mod fire_plant;
 
 #[derive(Event)]
 pub struct SpawnPlant(PlantType);
 
+#[derive(Component)]
+pub struct Plant(PlantType);
+
+#[derive(PartialEq)]
 pub enum PlantType {
     Fire,
 }
@@ -16,6 +21,8 @@ impl Plugin for PlantsPlugin {
         app
             .add_event::<SpawnPlant>()
 
+            .add_systems(Update, test_spawn) // TODO: REMOVE ME PLZ
+            
             .add_systems(Update, (
                 fire_plant::spawn,
             )

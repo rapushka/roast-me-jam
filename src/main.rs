@@ -10,6 +10,7 @@ mod constants;
 mod ui;
 mod gameplay;
 pub mod controls;
+mod utils;
 
 #[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
 pub enum Order {

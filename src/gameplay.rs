@@ -7,6 +7,7 @@ use crate::gameplay::enemies::EnemiesPlugin;
 use crate::gameplay::field::init_field;
 use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
 use crate::gameplay::movement::MovementPlugin;
+use crate::gameplay::plants::PlantsPlugin;
 use crate::gameplay::seeds::*;
 
 pub(crate) mod gameplay_loop;
@@ -29,6 +30,7 @@ impl Plugin for GameplayPlugin {
                 EnemiesPlugin,
                 MovementPlugin,
                 SeedsPlugin,
+                PlantsPlugin,
             ))
 
             .add_systems(OnEnter(AppState::Loading), init_field)
