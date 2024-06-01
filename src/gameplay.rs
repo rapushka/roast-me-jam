@@ -8,7 +8,7 @@ use crate::gameplay::field::init_field;
 use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
 use crate::gameplay::movement::MovementPlugin;
 
-mod gameplay_loop;
+pub(crate) mod gameplay_loop;
 mod background;
 mod enemies;
 mod animations;

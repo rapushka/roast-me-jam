@@ -47,7 +47,7 @@ pub fn build_main_menu(
         },
     ))
         .with_children(|parent| {
-            create::title(&asset_server, parent, "BrainRoasts vs PinosPrime");
+            create::title(&asset_server, parent, "BrainRoasts vs PinosPrime".to_string());
             create::image_button(&asset_server, parent, PlayButton, "ui/play-button-arrowhead.png", 100.0);
             create::image_button(&asset_server, parent, QuitButton, "ui/exit.png", 100.0);
         });

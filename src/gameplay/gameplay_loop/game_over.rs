@@ -3,6 +3,8 @@ use crate::gameplay::enemies::components::Enemy;
 use crate::gameplay::field::Field;
 use crate::GameState;
 
+mod ui;
+
 #[derive(Event)]
 pub struct GameOver(pub &'static str);
 
@@ -15,11 +17,11 @@ impl Plugin for GameOverPlugin {
 
             .add_systems(Update, (
                 game_over_on_zombie_in_house,
-            ).run_if(in_state(GameState::Playing)))
-
-            .add_systems(Update, (
                 on_game_over,
-            ).run_if(in_state(GameState::Playing)))
+            ).chain()
+                .run_if(in_state(GameState::Playing)))
+
+            .add_systems(OnEnter(GameState::GameOver), ui::build_game_over_screen)
         ;
     }
 }

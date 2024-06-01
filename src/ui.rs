@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 pub use main_menu::*;
-use crate::constants;
+use crate::{constants, gameplay};
+use crate::gameplay::gameplay_loop::EndGame;
 
 mod main_menu;
 // mod gameplay_hud;
@@ -17,6 +18,9 @@ pub mod order {
 
 #[derive(Event)]
 pub struct Clicked(Entity);
+
+#[derive(Component)]
+pub struct EndGameButton;
 
 pub struct UiPlugin;
 
@@ -35,6 +39,7 @@ impl Plugin for UiPlugin {
             .add_systems(Update, (
                 visualise_interaction_with_buttons,
                 click_on_pressed_button,
+                click_on_end_game_button,
                 // gameplay_hud::pause::on_back_button_clicked,
             ))
         ;
@@ -73,3 +78,15 @@ pub fn click_on_pressed_button(
         };
     }
 }
+
+pub fn click_on_end_game_button(
+    mut clicked_event: EventReader<Clicked>,
+    buttons: Query<Entity, (With<Button>, With<EndGameButton>)>,
+    mut end_game_event: EventWriter<EndGame>,
+) {
+    for event in clicked_event.read() {
+        if let Ok(_) = buttons.get(event.0) {
+            end_game_event.send(EndGame);
+        }
+    }
+} 

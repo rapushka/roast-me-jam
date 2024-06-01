@@ -7,7 +7,7 @@ use crate::constants;
 pub fn title(
     asset_server: &Res<AssetServer>,
     parent: &mut ChildBuilder,
-    title_text: &str,
+    title_text: String,
 ) {
     parent.spawn(NodeBundle { style: constants::styles::TITLE, ..default() })
         .with_children(|parent| {
@@ -18,7 +18,7 @@ pub fn title(
 pub fn button<C>(
     asset_server: &Res<AssetServer>,
     parent: &mut ChildBuilder,
-    string: &str,
+    string: String,
     component: C,
 )
     where C: Component {
@@ -28,7 +28,7 @@ pub fn button<C>(
 pub fn small_button<C>(
     asset_server: &Res<AssetServer>,
     parent: &mut ChildBuilder,
-    string: &str,
+    string: String,
     component: C,
 )
     where C: Component {
@@ -38,7 +38,7 @@ pub fn small_button<C>(
 fn button_internal<C>(
     asset_server: &Res<AssetServer>,
     parent: &mut ChildBuilder,
-    string: &str,
+    string: String,
     component: C,
     style: Style,
 ) where C: Component {
@@ -103,7 +103,7 @@ pub fn horizontal_layout(
 
 pub fn text(
     asset_server: &Res<AssetServer>,
-    text: &str,
+    text: String,
     parent: &mut ChildBuilder,
     font_size: f32,
 ) {
@@ -115,7 +115,7 @@ pub fn text(
 
 pub fn text_bundle(
     asset_server: &Res<AssetServer>,
-    text: &str,
+    text: String,
     font_size: f32,
 ) -> TextBundle {
     colored_text_bundle(asset_server, text, font_size, constants::color::DEFAULT_TEXT, ZIndex::default())
@@ -123,7 +123,7 @@ pub fn text_bundle(
 
 pub fn light_text_bundle(
     asset_server: &Res<AssetServer>,
-    text: &str,
+    text: String,
     font_size: f32,
     z_index: ZIndex,
 ) -> TextBundle {
@@ -132,7 +132,7 @@ pub fn light_text_bundle(
 
 fn colored_text_bundle(
     asset_server: &Res<AssetServer>,
-    text: &str,
+    text: String,
     font_size: f32,
     color: Color,
     z_index: ZIndex,
