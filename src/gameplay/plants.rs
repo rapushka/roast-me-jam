@@ -8,7 +8,7 @@ pub struct SpawnPlant(PlantType);
 #[derive(Component)]
 pub struct Plant(PlantType);
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum PlantType {
     Fire,
 }

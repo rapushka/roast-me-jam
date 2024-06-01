@@ -5,7 +5,7 @@ use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
 use crate::gameplay::field::Field;
 use crate::gameplay::plants::PlantType;
-use crate::gameplay::seeds::components::SeedSlot;
+use crate::gameplay::seeds::components::{Seed, SeedSlot};
 
 pub fn spawn_seeds_slots(
     mut commands: Commands,
@@ -42,5 +42,27 @@ impl Command for SpawnSeedsSlotCommand {
             })
             .insert(Clickable)
         ;
+    }
+}
+
+pub fn fill_seed_slots(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    slots: Query<(Entity, &SeedSlot), Added<SeedSlot>>,
+) {
+    for (entity, seed) in slots.iter() {
+        if let Some(plant_type) = seed.0 {
+            commands.entity(entity)
+                .with_children(|parent| {
+                    parent
+                        .spawn(Name::new("seed"))
+                        .insert(Seed(plant_type))
+                        .insert(SpriteBundle {
+                            texture: asset_server.load("sprites/seed.png"),
+                            ..default()
+                        })
+                    ;
+                });
+        }
     }
 }

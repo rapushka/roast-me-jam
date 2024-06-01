@@ -2,6 +2,7 @@ use bevy::app::{App, Plugin};
 use bevy::prelude::*;
 
 use crate::AppState;
+use crate::gameplay::seeds::components::SeedSlot;
 use crate::gameplay::seeds::initialization::*;
 
 mod initialization;
@@ -15,6 +16,8 @@ impl Plugin for SeedsPlugin {
             .add_systems(OnEnter(AppState::Gameplay), (
                 spawn_seeds_slots,
             ))
+
+            .add_systems(Update, fill_seed_slots)
         ;
     }
 }
