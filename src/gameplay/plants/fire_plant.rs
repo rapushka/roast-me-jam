@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
+use crate::{AppState, OnAppState};
 use crate::utils::Vec2Ext;
 
 pub fn spawn(
@@ -18,6 +19,7 @@ pub fn spawn(
         if let Some(cursor_position) = input.mouse_world_position {
             let entity = commands.spawn(Name::new("fire plant"))
                 .insert(Plant(PlantType::Fire))
+                .insert(OnAppState(AppState::Gameplay))
                 .id()
                 ;
 

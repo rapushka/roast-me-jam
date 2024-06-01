@@ -1,7 +1,7 @@
 use bevy::asset::AssetServer;
 use bevy::ecs::system::Command;
 use bevy::prelude::*;
-use crate::constants;
+use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
 use crate::gameplay::field::Field;
 use crate::gameplay::plants::PlantType;
@@ -34,6 +34,7 @@ impl Command for SpawnSeedsSlotCommand {
 
         world.spawn(Name::new("seed slot"))
             .insert(SeedSlot(self.seed))
+            .insert(OnAppState(AppState::Gameplay))
             .insert(SpriteBundle {
                 texture,
                 transform: Transform::from_translation(pos),
