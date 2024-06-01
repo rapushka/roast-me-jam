@@ -11,7 +11,7 @@ pub fn title(
 ) {
     parent.spawn(NodeBundle { style: constants::styles::TITLE, ..default() })
         .with_children(|parent| {
-            text(asset_server, title_text, parent, 64.0);
+            light_text(asset_server, title_text, parent, 64.0);
         });
 }
 
@@ -110,6 +110,18 @@ pub fn text(
     parent.spawn((
         Name::new(format!("text: {text}")),
         text_bundle(asset_server, text, font_size),
+    ));
+}
+
+pub fn light_text(
+    asset_server: &Res<AssetServer>,
+    text: String,
+    parent: &mut ChildBuilder,
+    font_size: f32,
+) {
+    parent.spawn((
+        Name::new(format!("text: {text}")),
+        light_text_bundle(asset_server, text, font_size, ZIndex::default()),
     ));
 }
 
