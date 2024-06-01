@@ -1,7 +1,6 @@
-use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
-use bevy::math::Vec3A;
+use bevy::math::bounding::{BoundingVolume, IntersectsVolume};
 use bevy::prelude::*;
-use bevy::render::primitives::Aabb;
+
 use crate::gameplay::collisions::components::*;
 
 pub mod components;
@@ -11,7 +10,7 @@ pub struct CollisionsPlugin;
 impl Plugin for CollisionsPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(Update, check_collisions)
+            .add_systems(FixedUpdate, check_collisions)
         ;
     }
 }
