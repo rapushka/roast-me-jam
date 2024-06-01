@@ -1,3 +1,6 @@
+pub const ZOMBIE_SPAWN_POINT_OFFSET: f32 = 0.5;
+pub const PLAYER_HOUSE_POINT_OFFSET: f32 = 0.5;
+
 pub mod controls {
     use bevy::prelude::KeyCode;
 

@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::window::PrimaryWindow;
 use bevy_editor_pls::EditorPlugin;
 use bevy_text_animation::TextAnimatorPlugin;
 use crate::gameplay::GameplayPlugin;
@@ -74,10 +75,16 @@ fn start_game(
 }
 
 fn spawn_camera(
-    mut commands: Commands
+    mut commands: Commands,
+    windows: Query<&Window, With<PrimaryWindow>>,
 ) {
+    let window = windows.get_single().unwrap();
+
     commands.spawn(Name::new("camera"))
-        .insert(Camera2dBundle::default())
+        .insert(Camera2dBundle {
+            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
+            ..default()
+        })
         .insert(IsDefaultUiCamera)
     ;
 }
