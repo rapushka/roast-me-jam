@@ -57,6 +57,7 @@ pub fn fill_seed_slots(
                     parent
                         .spawn(Name::new("seed"))
                         .insert(Seed(plant_type))
+                        .insert(Clickable)
                         .insert(SpriteBundle {
                             texture: asset_server.load("sprites/seed.png"),
                             transform: Transform::from_translation(Vec3::new(0.0, 0.0, 1.0)),
