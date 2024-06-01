@@ -4,6 +4,7 @@ use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::{AppState, OnAppState};
+use crate::gameplay::collisions::components::Collider;
 use crate::utils::Vec2Ext;
 
 pub fn spawn(
@@ -20,6 +21,7 @@ pub fn spawn(
             let entity = commands.spawn(Name::new("fire plant"))
                 .insert(Plant(PlantType::Fire))
                 .insert(OnAppState(AppState::Gameplay))
+                .insert(Collider)
                 .id()
                 ;
 

@@ -3,6 +3,7 @@ use crate::AppState;
 use crate::gameplay::animations::animate_sprites;
 
 use crate::gameplay::background::BackgroundPlugin;
+use crate::gameplay::collisions::CollisionsPlugin;
 use crate::gameplay::enemies::EnemiesPlugin;
 use crate::gameplay::field::init_field;
 use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
@@ -32,6 +33,7 @@ impl Plugin for GameplayPlugin {
                 MovementPlugin,
                 SeedsPlugin,
                 PlantsPlugin,
+                CollisionsPlugin,
             ))
 
             .add_systems(OnEnter(AppState::Loading), init_field)
