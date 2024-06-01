@@ -31,6 +31,7 @@ pub enum GameState {
     Undefined,
     Playing,
     Paused,
+    GameOver,
 }
 
 #[derive(Component)]

@@ -1,6 +1,9 @@
 use bevy::prelude::*;
 use crate::{AppState, GameState};
 use crate::constants::controls;
+use crate::gameplay::gameplay_loop::game_over::GameOverPlugin;
+
+mod game_over;
 
 #[derive(Event)]
 pub struct EndGame;
@@ -12,6 +15,8 @@ impl Plugin for GameplayLoopPlugin {
         app
             .add_event::<EndGame>()
 
+            .add_plugins(GameOverPlugin)
+            
             .add_systems(OnEnter(AppState::Gameplay), start_game)
 
             .add_systems(Update, end_game_with_esc)

@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
+use crate::GameState;
 
 #[derive(Component)]
 pub struct MovementSpeed(pub f32);
@@ -9,7 +10,7 @@ pub struct MovementPlugin;
 impl Plugin for MovementPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(Update, move_zombies_to_left)
+            .add_systems(Update, move_zombies_to_left.run_if(in_state(GameState::Playing)))
         ;
     }
 }
