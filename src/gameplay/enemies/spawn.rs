@@ -3,10 +3,12 @@ use rand;
 use rand::Rng;
 
 use crate::{AppState, constants, OnAppState};
+use crate::constants::CASUAL_ZOMBIE_HEALTH;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::*;
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
 use crate::gameplay::field::Field;
+use crate::gameplay::health::Health;
 use crate::gameplay::movement::MovementSpeed;
 
 #[derive(Event)]
@@ -36,6 +38,7 @@ pub fn spawn_default_enemy(
             .insert(OnAppState(AppState::Gameplay))
             .insert(MovementSpeed(speed))
             .insert(CircleCollider::new(100.0))
+            .insert(Health(CASUAL_ZOMBIE_HEALTH))
             .id();
 
         commands.add(AddAnimationCommand {

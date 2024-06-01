@@ -6,7 +6,7 @@ use crate::gameplay::collisions::components::*;
 pub mod components;
 
 #[derive(Event)]
-pub struct Collision(Entity, Entity);
+pub struct Collision(pub Entity, pub Entity);
 
 pub struct CollisionsPlugin;
 

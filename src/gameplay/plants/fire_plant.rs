@@ -4,7 +4,10 @@ use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::{AppState, OnAppState};
+use crate::constants::FIRE_DAMAGE;
+use crate::gameplay::collisions::Collision;
 use crate::gameplay::collisions::components::*;
+use crate::gameplay::health::CollisionDamage;
 use crate::utils::Vec2Ext;
 
 pub fn spawn(
@@ -22,6 +25,7 @@ pub fn spawn(
                 .insert(Plant(PlantType::Fire))
                 .insert(OnAppState(AppState::Gameplay))
                 .insert(CircleCollider::new(75.0))
+                .insert(CollisionDamage(FIRE_DAMAGE))
                 .id()
                 ;
 
