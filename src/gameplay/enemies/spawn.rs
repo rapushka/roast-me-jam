@@ -4,7 +4,7 @@ use rand::Rng;
 
 use crate::{AppState, constants, OnAppState};
 use crate::gameplay::animations::AddAnimationCommand;
-use crate::gameplay::collisions::components::Collider;
+use crate::gameplay::collisions::components::*;
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
 use crate::gameplay::field::Field;
 use crate::gameplay::movement::MovementSpeed;
@@ -35,7 +35,7 @@ pub fn spawn_default_enemy(
             .insert(Enemy(enemy_type))
             .insert(OnAppState(AppState::Gameplay))
             .insert(MovementSpeed(speed))
-            .insert(Collider)
+            .insert(CircleCollider::new(100.0))
             .id();
 
         commands.add(AddAnimationCommand {

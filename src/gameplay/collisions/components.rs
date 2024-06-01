@@ -1,8 +1,13 @@
 use bevy::prelude::*;
 
 #[derive(Component)]
-pub struct Collider;
+pub struct CircleCollider {
+    pub radius: f32,
+}
 
-#[derive(Component)]
-pub struct CircleCollider(pub f32);
+impl CircleCollider {
+    pub fn new(radius: f32) -> Self {
+        Self { radius }
+    }
+}
 

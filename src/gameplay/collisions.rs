@@ -2,7 +2,7 @@ use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
 use bevy::math::Vec3A;
 use bevy::prelude::*;
 use bevy::render::primitives::Aabb;
-use crate::gameplay::collisions::components::Collider;
+use crate::gameplay::collisions::components::*;
 
 pub mod components;
 
@@ -17,53 +17,23 @@ impl Plugin for CollisionsPlugin {
 }
 
 fn check_collisions(
-    colliders: Query<(Entity, &Aabb, &GlobalTransform), (With<Collider>)>,
+    colliders: Query<(Entity, &GlobalTransform, &CircleCollider)>,
 ) {
-    for (left, left_aabb, left_transform) in colliders.iter() {
-        for (right, right_aabb, right_transform) in colliders.iter() {
+    for (left, left_transform, left_collider) in colliders.iter() {
+        for (right, right_transform, right_collider) in colliders.iter() {
             if left == right {
                 continue;
             }
 
-            let left_aabb = to_aabb_2d(left_aabb, left_transform);
-            let right_aabb = to_aabb_2d(right_aabb, right_transform);
+            let left_position = left_transform.translation();
+            let right_position = right_transform.translation();
 
-            // let right_aabb = Aabb2d { min: right_aabb.min().as_vec2(), max: right_aabb.max().as_vec2() };
+            let distance = left_position.distance(right_position);
 
-            if left_aabb.contains(&right_aabb) {
+            if distance <= left_collider.radius
+                || distance <= right_collider.radius {
                 println!("{:?} hit {:?}", left, right);
             }
-        }
-    }
-}
-
-fn to_aabb_2d(aabb: &Aabb, transform: &GlobalTransform) -> Aabb2d {
-    let min: Vec3 = aabb.min().into();
-    let min = min + transform.translation();
-    let max: Vec3 = aabb.max().into();
-    let max = max + transform.translation();
-
-    Aabb2d { min: min.as_vec2(), max: max.as_vec2() }
-}
-
-pub trait Vec3Ext {
-    fn as_vec2(&self) -> Vec2;
-}
-
-impl Vec3Ext for Vec3A {
-    fn as_vec2(&self) -> Vec2 {
-        Vec2 {
-            x: self.x,
-            y: self.y,
-        }
-    }
-}
-
-impl Vec3Ext for Vec3 {
-    fn as_vec2(&self) -> Vec2 {
-        Vec2 {
-            x: self.x,
-            y: self.y,
         }
     }
 }
