@@ -17,6 +17,7 @@ pub mod color {
 
 pub mod styles {
     use bevy::prelude::*;
+    use bevy::ui::AlignSelf::Center;
 
     pub const LOADING_CURTAIN: Style = {
         let mut style = Style::DEFAULT;
@@ -101,5 +102,16 @@ pub mod styles {
         style.height = Val::Px(300.0);
         style
     };
+
+    pub fn square_button(size: f32) -> Style {
+        Style {
+            justify_content: JustifyContent::Center,
+            align_items: AlignItems::Center,
+            width: Val::Px(size),
+            height: Val::Px(size),
+            padding: UiRect::all(Val::Px(10.0)),
+            ..default()
+        }
+    }
 }
 

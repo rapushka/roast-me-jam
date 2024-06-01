@@ -55,6 +55,34 @@ fn button_internal<C>(
         });
 }
 
+pub fn image_button<C>(
+    asset_server: &Res<AssetServer>,
+    parent: &mut ChildBuilder,
+    component: C,
+    path: &'static str,
+    width: f32,
+) where C: Component {
+    parent.spawn((
+        component,
+        ButtonBundle {
+            style: constants::styles::square_button(width),
+            background_color: constants::color::DEFAULT_BUTTON.into(),
+            ..default()
+        },
+    ))
+        .with_children(|parent| {
+            parent.spawn(ImageBundle {
+                style: Style {
+                    // This will set the logo to be 200px wide, and auto adjust its height
+                    width: Val::Px(width),
+                    ..default()
+                },
+                image: UiImage::new(asset_server.load(path)),
+                ..default()
+            });
+        });
+}
+
 pub fn horizontal_layout(
     parent: &mut ChildBuilder,
     spawn_children: impl FnOnce(&mut ChildBuilder),

@@ -47,9 +47,9 @@ pub fn build_main_menu(
         },
     ))
         .with_children(|parent| {
-            create::title(&asset_server, parent, "FINAL Final Version 2.1.0");
-            create::button(&asset_server, parent, "Play", PlayButton {});
-            create::button(&asset_server, parent, "Quit", QuitButton {});
+            create::title(&asset_server, parent, "BrainRoasts vs PinosPrime");
+            create::image_button(&asset_server, parent, PlayButton, "ui/play-button-arrowhead.png", 100.0);
+            create::image_button(&asset_server, parent, QuitButton, "ui/exit.png", 100.0);
         });
 }
 
