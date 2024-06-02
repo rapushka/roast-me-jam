@@ -22,7 +22,7 @@ pub fn spawn_seeds_slots(
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Money) });
     let position = position + Vec2::new(100.0, 0.0);
-    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::SkibidiToilet) });
+    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Lego) });
 
     assert_eq!(constants::SEED_SLOT_COUNT, 3);
 }
