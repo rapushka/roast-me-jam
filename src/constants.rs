@@ -20,4 +20,4 @@ pub const CASUAL_ZOMBIE_HEALTH: f32 = 100.0;
 
 // ## Plants
 // ### Fire
-pub const FIRE_DAMAGE: f32 = 1.0;
+pub const FIRE_DAMAGE: f32 = 25.0;
