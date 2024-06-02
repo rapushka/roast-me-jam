@@ -20,7 +20,7 @@ mod field;
 mod movement;
 mod seeds;
 mod plants;
-mod collisions;
+pub mod collisions;
 mod health;
 
 pub struct GameplayPlugin;

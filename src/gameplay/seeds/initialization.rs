@@ -3,6 +3,7 @@ use bevy::ecs::system::Command;
 use bevy::prelude::*;
 use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
+use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::field::Field;
 use crate::gameplay::plants::*;
 use crate::gameplay::plants::price;
@@ -67,6 +68,7 @@ pub fn fill_seed_slots(
                             transform: Transform::from_translation(Vec3::new(0.0, 0.0, 1.0)),
                             ..default()
                         })
+                        .insert(CircleCollider::new(50.0))
                     ;
                 });
         }

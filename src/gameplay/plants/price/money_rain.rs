@@ -2,16 +2,23 @@ use std::time::Duration;
 use bevy::prelude::*;
 use rand::Rng;
 use crate::{AppState, constants, OnAppState};
+use crate::controls::{Clickable, Input};
+use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::field::Field;
 use crate::gameplay::movement::move_to_target::MoveToTarget;
 use crate::gameplay::movement::MovementSpeed;
+use crate::gameplay::plants::price::current_money::CurrentMoney;
 use crate::gameplay::plants::time_to_live::TimeToLive;
+use crate::ui::Clicked;
 
 #[derive(Event)]
 pub struct DropMoney;
 
 #[derive(Resource)]
 pub struct MoneyRain(pub Timer);
+
+#[derive(Component)]
+pub struct MoneyDroplet;
 
 pub struct MoneyRainPlugin;
 
@@ -24,6 +31,7 @@ impl Plugin for MoneyRainPlugin {
             .add_systems(Update, (
                 tick_money_rain,
                 drop_money_rain,
+                pick_money_droplet,
             ).chain()
                 .run_if(in_state(AppState::Gameplay)))
             .add_systems(OnExit(AppState::Gameplay), stop_money_rain)
@@ -87,6 +95,7 @@ fn drop_money_rain(
         start_position.y += constants::MONEY_RAIN_DROPLET_OFFSET_Y;
 
         commands.spawn(Name::new("money droplet"))
+            .insert(MoneyDroplet)
             .insert(SpriteBundle {
                 texture: asset_server.load("sprites/RoByn_small.png"),
                 ..default()
@@ -96,6 +105,24 @@ fn drop_money_rain(
             .insert(MovementSpeed(constants::MONEY_FALL_SPEED))
             .insert(TimeToLive(Timer::from_seconds(constants::MONEY_TTL, TimerMode::Once)))
             .insert(OnAppState(AppState::Gameplay))
+            .insert(Clickable)
+            .insert(CircleCollider::new(20.0))
         ;
+    }
+}
+
+fn pick_money_droplet(
+    mut commands: Commands,
+    mut event: EventReader<Clicked>,
+    coins: Query<Entity, With<MoneyDroplet>>,
+    mut money: Query<&mut CurrentMoney>,
+) {
+    for e in event.read() {
+        if let Ok(coin) = coins.get(e.0) {
+            let mut money = money.single_mut();
+            money.0 += 1;
+
+            commands.entity(coin).despawn_recursive();
+        }
     }
 }

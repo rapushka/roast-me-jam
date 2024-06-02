@@ -22,8 +22,8 @@ impl Plugin for PricesPlugin {
             .add_plugins((
                 SpendPlugin,
                 MoneyRainPlugin,
-            ))
             
+            ))
             .add_systems(OnEnter(AppState::Gameplay), spawn_current_money)
 
             .add_systems(Update, (

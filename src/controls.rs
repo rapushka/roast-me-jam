@@ -2,6 +2,7 @@ use bevy::input::ButtonInput;
 use bevy::prelude::*;
 use bevy::render::primitives::Aabb;
 use bevy::window::PrimaryWindow;
+use crate::gameplay::collisions::components::CircleCollider;
 
 use crate::ui::Clicked;
 
@@ -47,24 +48,19 @@ fn mouse_position_to_world(
 fn track_mouse_clicks(
     input: Res<Input>,
     mut clicked_event: EventWriter<Clicked>,
-    clickable_entities: Query<(Entity, &Aabb, &GlobalTransform), With<Clickable>>,
+    clickable_entities: Query<(Entity, &CircleCollider, &GlobalTransform), With<Clickable>>,
 ) {
     if !input.left_click {
         return;
     }
 
     if let Some(cursor_position) = input.mouse_world_position {
-        for (entity, aabb, global_transform) in clickable_entities.iter() {
-            let min: Vec3 = aabb.min().into();
-            let max: Vec3 = aabb.max().into();
-
-            let min = min + global_transform.translation();
-            let max = max + global_transform.translation();
-
-            let intersects = cursor_position.x >= min.x && cursor_position.y >= min.y
-                && cursor_position.x <= max.x && cursor_position.y <= max.y;
-
-            if intersects {
+        for (entity, collider, global_transform) in clickable_entities.iter() {
+            let target_position = global_transform.translation();
+            let cursor_position = Vec3 { x: cursor_position.x, y: cursor_position.y, z: target_position.z };
+            let distance = target_position.distance(cursor_position);
+            
+            if distance <= collider.radius {
                 clicked_event.send(Clicked(entity));
             }
         }
