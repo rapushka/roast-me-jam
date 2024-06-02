@@ -22,7 +22,7 @@ impl Plugin for PlantsPlugin {
         app
             .add_event::<SpawnPlant>()
 
-            .add_systems(Update, test_spawn) // TODO: REMOVE ME
+            // .add_systems(Update, test_spawn)
 
             .add_systems(Update, update_time_to_live)
 

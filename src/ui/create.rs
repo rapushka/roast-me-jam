@@ -155,7 +155,7 @@ fn colored_text_bundle(
                 TextSection::new(
                     text,
                     TextStyle {
-                        font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                        font: asset_server.load("fonts/Ldfcomicsans-jj7l.ttf"),
                         font_size,
                         color,
                     },
