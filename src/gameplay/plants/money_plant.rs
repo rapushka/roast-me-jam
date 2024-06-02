@@ -31,7 +31,7 @@ pub fn spawn(
 
             commands.add(AddAnimationCommand {
                 entity,
-                transform: Transform::from_translation(cursor_position.as_vec3()).with_scale(Vec3::splat(0.5)),
+                transform: Transform::from_translation(cursor_position.as_vec3()).with_scale(Vec3::splat(0.1)),
                 path_to_atlas: "sprites/plants/money_flower_atlas.png",
                 layout: TextureAtlasLayout::from_grid(Vec2::new(682.0, 882.0), 3, 1, None, None),
                 fps: 4.0,
