@@ -49,6 +49,8 @@ fn gain_score_from_kill_enemies(
         if let Ok(enemy) = zombies.get(e.0) {
             let mut gain = match enemy.0 {
                 EnemyType::Casual => 1,
+                EnemyType::Cone => 2,
+                EnemyType::Bucked => 5,
             };
 
             gain *= (difficulty.0 * 100.0) as i32;

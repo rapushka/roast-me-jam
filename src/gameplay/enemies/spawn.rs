@@ -5,7 +5,7 @@ use rand;
 use rand::Rng;
 
 use crate::{AppState, constants, OnAppState};
-use crate::constants::CASUAL_ZOMBIE_HEALTH;
+use crate::constants::{BUCKET_ZOMBIE_HEALTH, CASUAL_ZOMBIE_HEALTH, CONE_ZOMBIE_HEALTH};
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::*;
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
@@ -29,9 +29,12 @@ pub fn spawn_default_enemy(
 
     for e in event_reader.read() {
         let enemy_type = e.0.clone();
-        if enemy_type != EnemyType::Casual {
-            continue;
-        }
+
+        let health = match enemy_type {
+            EnemyType::Casual => CASUAL_ZOMBIE_HEALTH,
+            EnemyType::Cone => CONE_ZOMBIE_HEALTH,
+            EnemyType::Bucked => BUCKET_ZOMBIE_HEALTH,
+        };
 
         let y_range = field.zombie_spawn_y_range.clone();
         let y = rng.gen_range(y_range);
@@ -44,13 +47,18 @@ pub fn spawn_default_enemy(
             .insert(OnAppState(AppState::Gameplay))
             .insert(MovementSpeed(speed))
             .insert(CircleCollider::new(100.0))
-            .insert(Health(CASUAL_ZOMBIE_HEALTH))
+            .insert(Health(health))
             .id();
 
+        let path = match enemy_type {
+            EnemyType::Casual => "sprites/casual_enemy_atlas.png",
+            EnemyType::Cone => "sprites/cone_enemy_atlas.png",
+            EnemyType::Bucked => "sprites/casual_enemy_atlas.png",
+        };
         commands.add(AddAnimationCommand {
             entity,
             frames_count: 2,
-            path_to_atlas: "sprites/casual_enemy_atlas.png",
+            path_to_atlas: path,
             fps: 2.0,
             layout: TextureAtlasLayout::from_grid(Vec2::new(1024.0, 2048.0), 2, 1, None, None),
             transform: Transform::from_translation(start_position).with_scale(Vec3::splat(0.1)),
@@ -77,8 +85,8 @@ pub fn tick_spawn_enemy_timer(
         let mut rng = rand::thread_rng();
         let chance = rng.gen_range(0.0..=difficulty.0);
 
-        let enemy_type = if chance > 0.0 {
-            EnemyType::Casual
+        let enemy_type = if chance > 1.0 {
+            EnemyType::Cone
         } else {
             EnemyType::Casual
         };
