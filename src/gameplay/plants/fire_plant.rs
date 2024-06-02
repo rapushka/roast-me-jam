@@ -1,13 +1,12 @@
 use bevy::prelude::*;
 
-use crate::controls::Input;
-use crate::gameplay::animations::AddAnimationCommand;
-use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::{AppState, OnAppState};
 use crate::constants::FIRE_DAMAGE;
-use crate::gameplay::collisions::Collision;
+use crate::controls::Input;
+use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::*;
 use crate::gameplay::health::CollisionDamage;
+use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::utils::Vec2Ext;
 
 pub fn spawn(

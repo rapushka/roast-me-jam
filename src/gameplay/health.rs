@@ -3,6 +3,9 @@ use crate::AppState;
 use crate::gameplay::collisions::Collision;
 use crate::gameplay::enemies::components::Enemy;
 
+#[derive(Event)]
+pub struct Kill(pub Entity);
+
 #[derive(Component, Reflect)]
 pub struct Health(pub f32);
 
@@ -15,11 +18,15 @@ impl Plugin for HealthPlugin {
     fn build(&self, app: &mut App) {
         app
             .register_type::<Health>()
-            
+
+            .add_event::<Kill>()
+
             .add_systems(Update, (
                 apply_collision_damage,
                 kill_entity_with_zero_hp,
             ).run_if(in_state(AppState::Gameplay)))
+
+            .add_systems(PostUpdate, fulfill_kill_request.run_if(on_event::<Kill>()))
         ;
     }
 }
@@ -40,12 +47,21 @@ fn apply_collision_damage(
 }
 
 fn kill_entity_with_zero_hp(
-    mut commands: Commands,
     entities: Query<(Entity, &Health), Changed<Health>>,
+    mut event: EventWriter<Kill>,
 ) {
     for (e, health) in entities.iter() {
         if health.0 <= 0.0 {
-            commands.entity(e).despawn_recursive();
+            event.send(Kill(e));
         }
+    }
+}
+
+fn fulfill_kill_request(
+    mut commands: Commands,
+    mut event: EventReader<Kill>,
+) {
+    for event in event.read() {
+        commands.entity(event.0).despawn_recursive();
     }
 }
