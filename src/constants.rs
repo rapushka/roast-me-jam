@@ -36,3 +36,6 @@ pub const FIRE_PRICE: i32 = 3;
 // ### Money
 pub const MONEY_PLANT_PRICE: i32 = 6;
 pub const MONEY_PLANT_HARVEST: f32 = 6.0;
+pub const MONEY_PLANT_SPAWN_MONEY_X: Range<f32> = -35.0..35.0;
+pub const MONEY_PLANT_SPAWN_MONEY_Y: Range<f32> = 15.0..16.0;
+pub const MONEY_PLANT_SPAWN_MONEY_FALL_DISTANCE: f32 = 50.0;

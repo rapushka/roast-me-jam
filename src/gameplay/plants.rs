@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use crate::AppState;
-use crate::gameplay::plants::money_plant::{SpawnMoneyFromTree, tick_money_plant_harvest};
+use crate::gameplay::plants::money_plant::*;
 use crate::gameplay::plants::price::PricesPlugin;
 use crate::gameplay::plants::time_to_live::update_time_to_live;
 
@@ -41,6 +41,7 @@ impl Plugin for PlantsPlugin {
             .add_systems(Update, (
                 update_time_to_live,
                 tick_money_plant_harvest,
+                spawn_money_from_tree,
             ).run_if(in_state(AppState::Gameplay)))
 
             .add_systems(Update, (

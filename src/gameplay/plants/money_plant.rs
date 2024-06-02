@@ -1,12 +1,15 @@
 use bevy::core::Name;
 use bevy::math::{Vec2, Vec3};
 use bevy::prelude::*;
+use bevy_editor_pls::egui::debug_text::print;
+use rand::Rng;
 
 use crate::{AppState, constants, OnAppState};
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
+use crate::gameplay::plants::price::money_rain::SpawnMoney;
 use crate::utils::Vec2Ext;
 
 #[derive(Component)]
@@ -62,8 +65,22 @@ pub fn tick_money_plant_harvest(
 }
 
 pub fn spawn_money_from_tree(
-    mut commands: Commands,
     mut event: EventReader<SpawnMoneyFromTree>,
+    mut spawn_money_event: EventWriter<SpawnMoney>,
 ) {
-    
+    for e in event.read() {
+        let mut start_position = e.0;
+        let mut rng = rand::thread_rng();
+        let x = rng.gen_range(constants::MONEY_PLANT_SPAWN_MONEY_X);
+        let y = rng.gen_range(constants::MONEY_PLANT_SPAWN_MONEY_Y);
+        start_position.x += x;
+        start_position.y += y;
+        let mut end_position = start_position;
+        end_position.y -= constants::MONEY_PLANT_SPAWN_MONEY_FALL_DISTANCE;
+
+        spawn_money_event.send(SpawnMoney {
+            start_position,
+            end_position,
+        });
+    }
 }
