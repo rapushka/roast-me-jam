@@ -1,3 +1,4 @@
+use bevy::audio::Volume;
 use bevy::prelude::*;
 use crate::gameplay::enemies::components::Enemy;
 use crate::gameplay::field::Field;
@@ -33,6 +34,8 @@ impl Plugin for GameOverPlugin {
 }
 
 fn game_over_on_zombie_in_house(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
     mut event: EventWriter<GameOver>,
     zombies: Query<&Transform, With<Enemy>>,
     field: Res<Field>,
@@ -42,6 +45,13 @@ fn game_over_on_zombie_in_house(
 
         if position <= field.player_house_x {
             event.send(GameOver("Pino Prime ate your brainz:("));
+            
+            commands.spawn(
+                AudioBundle {
+                    source: asset_server.load("audio/womp.ogg"),
+                    settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.25)),
+                }
+            );
         }
     }
 }

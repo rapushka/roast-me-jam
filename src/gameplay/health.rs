@@ -94,9 +94,9 @@ fn kill_entity_with_zero_hp(
 }
 
 fn spawn_ash_baby(
+    mut commands: Commands,
     mut event: EventReader<Kill>,
     mut causes: Query<(&CauseOfDeath, &Transform)>,
-    mut commands: Commands,
     asset_server: Res<AssetServer>,
 ) {
     for event in event.read() {
