@@ -1,5 +1,7 @@
 use bevy::prelude::*;
+use crate::gameplay::plants::time_to_live::update_time_to_live;
 
+mod time_to_live;
 mod fire_plant;
 
 #[derive(Event)]
@@ -20,7 +22,9 @@ impl Plugin for PlantsPlugin {
         app
             .add_event::<SpawnPlant>()
 
-            .add_systems(Update, test_spawn)
+            .add_systems(Update, test_spawn) // TODO: REMOVE ME
+
+            .add_systems(Update, update_time_to_live)
 
             .add_systems(Update, (
                 fire_plant::spawn,
