@@ -4,7 +4,7 @@ use crate::gameplay::plants::money_plant::*;
 use crate::gameplay::plants::price::PricesPlugin;
 use crate::gameplay::plants::time_to_live::update_time_to_live;
 
-mod time_to_live;
+pub mod time_to_live;
 pub mod price;
 mod fire_plant;
 mod money_plant;
