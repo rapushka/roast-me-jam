@@ -1,15 +1,15 @@
 use bevy::input::ButtonInput;
 use bevy::prelude::*;
-use bevy::render::primitives::Aabb;
 use bevy::window::PrimaryWindow;
-use crate::gameplay::collisions::components::CircleCollider;
 
+use crate::gameplay::collisions::components::CircleCollider;
 use crate::ui::Clicked;
 
 #[derive(Resource, Default)]
 pub struct Input {
     pub mouse_world_position: Option<Vec2>,
     pub left_click: bool,
+    pub right_click: bool,
 }
 
 #[derive(Component)]
@@ -43,6 +43,7 @@ fn mouse_position_to_world(
     };
 
     input.left_click = buttons.just_pressed(MouseButton::Left);
+    input.right_click = buttons.just_pressed(MouseButton::Right);
 }
 
 fn track_mouse_clicks(
@@ -59,7 +60,7 @@ fn track_mouse_clicks(
             let target_position = global_transform.translation();
             let cursor_position = Vec3 { x: cursor_position.x, y: cursor_position.y, z: target_position.z };
             let distance = target_position.distance(cursor_position);
-            
+
             if distance <= collider.radius {
                 clicked_event.send(Clicked(entity));
             }

@@ -43,6 +43,8 @@ impl Plugin for PlantingPlugin {
                 plant,
             ).run_if(in_state(PlantingState::Planting)))
 
+            .add_systems(Update, cancel_with_rmb.run_if(not(in_state(PlantingState::Harvesting))))
+
             .add_systems(OnEnter(PlantingState::Harvesting), reset_selected_seed)
         ;
     }
@@ -106,5 +108,14 @@ fn plant(
             spawn_plant_event.send(SpawnPlant(plant_type));
         } else {}
         next_state.set(PlantingState::Harvesting);
+    }
+}
+
+fn cancel_with_rmb(
+    input: Res<Input>,
+    mut next_planting_state: ResMut<NextState<PlantingState>>,
+) {
+    if input.right_click {
+        next_planting_state.set(PlantingState::Harvesting);
     }
 }
