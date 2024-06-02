@@ -60,4 +60,4 @@ pub const SKIBIDI_TOILET_ROF: f32 = 1.0;
 // ## Projectiles
 // ### Nuke
 pub const NUKE_MOVEMENT_SPEED: f32 = 100.0;
-pub const NUKE_DAMAGE: f32 = 50.0;
+pub const NUKE_DAMAGE: f32 = 5.0;
