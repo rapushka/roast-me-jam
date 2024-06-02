@@ -10,6 +10,9 @@ use crate::ui::Clicked;
 #[derive(Resource, Default)]
 pub struct SelectedSeed(pub Option<PlantType>);
 
+#[derive(Component)]
+pub struct SeedInHand;
+
 #[derive(States, Debug, Hash, PartialEq, Eq, Clone, Default)]
 pub enum PlantingState {
     #[default]
@@ -50,7 +53,7 @@ fn init_planting_state(
 
 fn start_planting(
     mut clicked_event: EventReader<Clicked>,
-    seeds: Query<&Seed>,
+    seeds: Query<&Seed, With<SeedInHand>>,
     mut selected_seed: ResMut<SelectedSeed>,
     mut next_state: ResMut<NextState<PlantingState>>,
 ) {

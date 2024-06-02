@@ -9,6 +9,7 @@ use crate::gameplay::plants::*;
 use crate::gameplay::plants::price;
 use crate::gameplay::plants::price::Price;
 use crate::gameplay::seeds::components::{Seed, SeedSlot};
+use crate::gameplay::seeds::planting::SeedInHand;
 
 pub fn spawn_seeds_slots(
     mut commands: Commands,
@@ -21,7 +22,7 @@ pub fn spawn_seeds_slots(
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Money) });
     let position = position + Vec2::new(100.0, 0.0);
-    commands.add(SpawnSeedsSlotCommand { position, seed: None });
+    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Lego) });
 
     assert_eq!(constants::SEED_SLOT_COUNT, 3);
 }
@@ -61,6 +62,7 @@ pub fn fill_seed_slots(
                     parent
                         .spawn(Name::new("seed"))
                         .insert(Seed(plant_type))
+                        .insert(SeedInHand)
                         .insert(Clickable)
                         .insert(Price(price::get_price(plant_type)))
                         .insert(SpriteBundle {
@@ -106,7 +108,7 @@ pub fn get_scale(plant_type: PlantType) -> Vec3 {
 
 pub fn get_sprite(plant_type: PlantType) -> &'static str {
     match plant_type {
-        PlantType::Fire => "sprites/plants/fire_2.png",
+        PlantType::Fire => "sprites/plants/fire_1.png",
         PlantType::Money => "sprites/plants/money_flower.png",
         PlantType::Lego => "sprites/plants/lego.png",
     }
