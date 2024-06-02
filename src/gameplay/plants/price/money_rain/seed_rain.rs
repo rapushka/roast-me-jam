@@ -28,7 +28,7 @@ impl Plugin for SeedRainPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_plugins(PickingDroppedSeedPlugin)
-            
+
             .add_event::<DropSeed>()
 
             .add_systems(Update, (
@@ -66,11 +66,12 @@ fn drop_seed(
 
 fn pick_random_plant() -> PlantType {
     let mut rng = rand::thread_rng();
-    match rng.gen_range(0..=3) {
+    match rng.gen_range(0..=4) {
         0 => PlantType::Fire,
         1 => PlantType::Money,
         2 => PlantType::Lego,
         3 => PlantType::SkibidiToilet,
+        4 => PlantType::Weezer,
         _ => panic!("nah:("),
     }
 }
