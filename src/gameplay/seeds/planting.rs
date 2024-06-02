@@ -6,7 +6,10 @@ use crate::controls::Input;
 use crate::gameplay::plants::{PlantType, SpawnPlant};
 use crate::gameplay::plants::plant_preview::PlantPreview;
 use crate::gameplay::seeds::components::Seed;
+use crate::gameplay::seeds::planting::cooldowns::Cooldown;
 use crate::ui::Clicked;
+
+pub mod cooldowns;
 
 #[derive(Resource, Default)]
 pub struct SelectedSeed(pub Option<PlantType>);
@@ -60,7 +63,7 @@ fn start_planting(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut clicked_event: EventReader<Clicked>,
-    seeds: Query<&Seed, With<SeedInHand>>,
+    seeds: Query<&Seed, (With<SeedInHand>, Without<Cooldown>)>,
     mut selected_seed: ResMut<SelectedSeed>,
     mut next_state: ResMut<NextState<PlantingState>>,
 ) {

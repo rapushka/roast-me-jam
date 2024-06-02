@@ -11,9 +11,7 @@ pub struct SpendPlugin;
 impl Plugin for SpendPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(OnEnter(PlantingState::Buying),
-                         try_buy_plant,
-            )
+            .add_systems(OnEnter(PlantingState::Buying), try_buy_plant)
 
             .add_systems(Update, spend_money.run_if(on_event::<SpawnPlant>()))
 
