@@ -6,7 +6,7 @@ use crate::gameplay::seeds::initialization::*;
 use crate::gameplay::seeds::planting::PlantingPlugin;
 
 mod initialization;
-mod components;
+pub mod components;
 pub mod planting;
 
 pub struct SeedsPlugin;

@@ -22,4 +22,4 @@ pub const CASUAL_ZOMBIE_HEALTH: f32 = 100.0;
 // ### Fire
 pub const FIRE_DAMAGE: f32 = 25.0;
 pub const FIRE_TTL_IN_SECONDS: f32 = 2.0;
-pub const FIRE_PRICE: u32 = 3;
+pub const FIRE_PRICE: i32 = 3;

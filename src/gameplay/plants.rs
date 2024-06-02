@@ -1,7 +1,9 @@
 use bevy::prelude::*;
+use crate::gameplay::plants::price::PricesPlugin;
 use crate::gameplay::plants::time_to_live::update_time_to_live;
 
 mod time_to_live;
+pub mod price;
 mod fire_plant;
 
 #[derive(Event)]
@@ -24,6 +26,10 @@ impl Plugin for PlantsPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_event::<SpawnPlant>()
+
+            .add_plugins((
+                PricesPlugin,
+            ))
 
             // .add_systems(Update, test_spawn)
 

@@ -121,7 +121,7 @@ pub fn light_text(
 ) {
     parent.spawn((
         Name::new(format!("text: {text}")),
-        light_text_bundle(asset_server, text, font_size, ZIndex::default()),
+        light_text_bundle(asset_server, text, font_size),
     ));
 }
 
@@ -130,16 +130,15 @@ pub fn text_bundle(
     text: String,
     font_size: f32,
 ) -> TextBundle {
-    colored_text_bundle(asset_server, text, font_size, constants::color::DEFAULT_TEXT, ZIndex::default())
+    colored_text_bundle(asset_server, text, font_size, constants::color::DEFAULT_TEXT)
 }
 
 pub fn light_text_bundle(
     asset_server: &Res<AssetServer>,
     text: String,
     font_size: f32,
-    z_index: ZIndex,
 ) -> TextBundle {
-    colored_text_bundle(asset_server, text, font_size, constants::color::LIGHT_TEXT, z_index)
+    colored_text_bundle(asset_server, text, font_size, constants::color::LIGHT_TEXT)
 }
 
 fn colored_text_bundle(
@@ -147,7 +146,6 @@ fn colored_text_bundle(
     text: String,
     font_size: f32,
     color: Color,
-    z_index: ZIndex,
 ) -> TextBundle {
     TextBundle {
         text: Text {
@@ -163,7 +161,6 @@ fn colored_text_bundle(
             justify: JustifyText::Center,
             ..default()
         },
-        z_index,
         ..default()
     }
 }
