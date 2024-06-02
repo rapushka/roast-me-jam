@@ -26,8 +26,8 @@ pub fn spawn_current_money(
         .with_children(|parent| {
             parent.spawn(Name::new("image"))
                 .insert(SpriteBundle {
-                    texture: asset_server.load("sprites/RoByn.png"),
-                    transform: Transform::from_xyz(-50.0, 0.0, 0.0).with_scale(Vec3::splat(0.5)),
+                    texture: asset_server.load("sprites/RoByn_small.png"),
+                    transform: Transform::from_xyz(-50.0, 0.0, 0.0).with_scale(Vec3::splat(0.3)),
                     ..default()
                 });
 

@@ -88,10 +88,10 @@ fn drop_money_rain(
 
         commands.spawn(Name::new("money droplet"))
             .insert(SpriteBundle {
-                texture: asset_server.load("sprites/RoByn.png"),
+                texture: asset_server.load("sprites/RoByn_small.png"),
                 ..default()
             })
-            .insert(Transform::from_translation(start_position).with_scale(Vec3::splat(0.2)))
+            .insert(Transform::from_translation(start_position).with_scale(Vec3::splat(0.15)))
             .insert(MoveToTarget(end_position))
             .insert(MovementSpeed(constants::MONEY_FALL_SPEED))
             .insert(TimeToLive(Timer::from_seconds(constants::MONEY_TTL, TimerMode::Once)))
