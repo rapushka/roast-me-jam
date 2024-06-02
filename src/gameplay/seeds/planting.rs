@@ -53,11 +53,8 @@ fn start_planting(
     mut next_state: ResMut<NextState<PlantingState>>,
 ) {
     for e in clicked_event.read() {
-        println!("click on {:?}", e.0);
         if let Ok(clicked_seed) = seeds.get(e.0) {
-            println!("click is on seed");
             if let Some(previous_plant_type) = selected_seed.0 {
-                println!("is same");
                 if previous_plant_type == clicked_seed.0 {
                     next_state.set(PlantingState::Harvesting);
                     continue;
