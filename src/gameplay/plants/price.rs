@@ -1,10 +1,13 @@
 use bevy::prelude::*;
-use crate::AppState;
+use crate::{AppState, constants};
+use crate::gameplay::plants::PlantType;
 use crate::gameplay::plants::price::current_money::*;
+use crate::gameplay::plants::price::spend::SpendPlugin;
 use crate::gameplay::seeds::components::Seed;
 
 mod spawn;
 pub mod current_money;
+pub mod spend;
 
 #[derive(Component)]
 pub struct Price(pub i32);
@@ -14,6 +17,8 @@ pub struct PricesPlugin;
 impl Plugin for PricesPlugin {
     fn build(&self, app: &mut App) {
         app
+            .add_plugins(SpendPlugin)
+            
             .add_systems(OnEnter(AppState::Gameplay), spawn_current_money)
 
             .add_systems(Update, (
@@ -35,5 +40,11 @@ fn visualise_plant_price(
                 let transform = Transform::from_xyz(0.0, -46.0, 2.0);
                 spawn::price_text(&asset_server, parent, price.0, transform);
             });
+    }
+}
+
+pub fn get_price(plant_type: PlantType) -> i32 {
+    match plant_type {
+        PlantType::Fire => constants::FIRE_PRICE,
     }
 }

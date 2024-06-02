@@ -5,6 +5,7 @@ use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
 use crate::gameplay::field::Field;
 use crate::gameplay::plants::*;
+use crate::gameplay::plants::price;
 use crate::gameplay::plants::price::Price;
 use crate::gameplay::seeds::components::{Seed, SeedSlot};
 
@@ -60,7 +61,7 @@ pub fn fill_seed_slots(
                         .spawn(Name::new("seed"))
                         .insert(Seed(plant_type))
                         .insert(Clickable)
-                        .insert(Price(get_price(plant_type)))
+                        .insert(Price(price::get_price(plant_type)))
                         .insert(SpriteBundle {
                             texture: asset_server.load("sprites/seed.png"),
                             transform: Transform::from_translation(Vec3::new(0.0, 0.0, 1.0)),
@@ -96,11 +97,5 @@ pub fn seed_preview(
 pub fn get_sprite(plant_type: PlantType) -> &'static str {
     match plant_type {
         PlantType::Fire => "sprites/plants/fire_2.png"
-    }
-}
-
-pub fn get_price(plant_type: PlantType) -> i32 {
-    match plant_type {
-        PlantType::Fire => constants::FIRE_PRICE,
     }
 } 

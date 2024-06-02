@@ -13,6 +13,7 @@ pub struct SelectedSeed(pub Option<PlantType>);
 pub enum PlantingState {
     #[default]
     Harvesting,
+    Buying,
     Planting,
 }
 
@@ -62,7 +63,7 @@ fn start_planting(
             }
 
             selected_seed.0 = Some(clicked_seed.0);
-            next_state.set(PlantingState::Planting);
+            next_state.set(PlantingState::Buying);
         }
     }
 }
