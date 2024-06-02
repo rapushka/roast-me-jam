@@ -2,7 +2,7 @@ use bevy::math::bounding::Aabb2d;
 use bevy::prelude::*;
 use crate::controls::Input;
 use crate::gameplay::field::Field;
-use crate::gameplay::seeds::initialization::get_sprite;
+use crate::gameplay::seeds::initialization::{get_scale, get_sprite};
 use crate::gameplay::seeds::planting::{PlantingState, SelectedSeed};
 
 #[derive(Component, Default)]
@@ -43,7 +43,7 @@ fn create_plant_preview(
         .insert(PlantPreview::default())
         .insert(SpriteBundle {
             texture: asset_server.load(get_sprite(plant_type)),
-            transform: Transform::from_translation(spawn_point),
+            transform: Transform::from_translation(spawn_point).with_scale(get_scale(plant_type)),
             ..default()
         })
     ;

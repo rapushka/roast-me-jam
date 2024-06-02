@@ -19,7 +19,7 @@ mod enemies;
 mod animations;
 mod field;
 mod movement;
-mod seeds;
+pub mod seeds;
 mod plants;
 pub mod collisions;
 mod health;

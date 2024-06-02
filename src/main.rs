@@ -9,7 +9,7 @@ use crate::ui::UiPlugin;
 
 mod constants;
 mod ui;
-mod gameplay;
+pub mod gameplay;
 pub mod controls;
 mod utils;
 
