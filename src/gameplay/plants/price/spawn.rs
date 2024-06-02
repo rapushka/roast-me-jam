@@ -43,7 +43,7 @@ pub fn current_money_text(
     let text_style = TextStyle {
         font: font.clone(),
         font_size: 64.0,
-        color: constants::color::GREEN_TEXT,
+        color: constants::color::LIGHT_GREEN_TEXT,
     };
     let text_justification = JustifyText::Left;
 
