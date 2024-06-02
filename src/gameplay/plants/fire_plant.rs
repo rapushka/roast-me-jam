@@ -32,9 +32,9 @@ pub fn spawn(
 
             commands.add(AddAnimationCommand {
                 entity,
-                transform: Transform::from_translation(cursor_position.as_vec3()).with_scale(Vec3::splat(0.5)),
+                transform: Transform::from_translation(cursor_position.as_vec3()).with_scale(Vec3::splat(0.05)),
                 path_to_atlas: "sprites/plants/fire_atlas.png",
-                layout: TextureAtlasLayout::from_grid(Vec2::new(150.0, 200.0), 2, 1, None, None),
+                layout: TextureAtlasLayout::from_grid(Vec2::new(2048.0, 2048.0), 2, 1, None, None),
                 fps: 8.0,
                 frames_count: 2,
             });

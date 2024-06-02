@@ -28,6 +28,8 @@ pub const MONEY_TTL: f32 = 10.0;
 // ## Zombie
 pub const CASUAL_ZOMBIE_MOVEMENT_SPEED: Range<f32> = 20.0..50.0;
 pub const CASUAL_ZOMBIE_HEALTH: f32 = 100.0;
+pub const SPAWN_FIRST_ENEMY_DURATION: f32 = 5.0;
+pub const SPAWN_ENEMY_DURATION_RANGE: Range<f32> = 8.0..10.0;
 
 // ## Plants
 // ### Fire

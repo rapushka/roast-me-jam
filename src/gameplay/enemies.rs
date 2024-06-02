@@ -1,7 +1,8 @@
 use bevy::prelude::*;
 use components::EnemyType;
+use crate::{AppState, constants};
 use crate::gameplay::enemies::difficulty::DifficultyPlugin;
-use crate::gameplay::enemies::spawn::{spawn_default_enemy, SpawnEnemy};
+use crate::gameplay::enemies::spawn::*;
 
 pub mod components;
 mod spawn;
@@ -15,12 +16,19 @@ impl Plugin for EnemiesPlugin {
             .add_event::<SpawnEnemy>()
 
             .add_plugins(DifficultyPlugin)
+            .insert_resource(SpawnEnemyTimer(Timer::from_seconds(constants::SPAWN_FIRST_ENEMY_DURATION, TimerMode::Repeating)))
+
+            // .add_systems(OnEnter(), ) 
             
             // .add_systems(Update, test_spawn_enemy)
 
             .add_systems(Update, (
                 spawn_default_enemy,
             ).run_if(on_event::<SpawnEnemy>()))
+
+            .add_systems(Update, (
+                tick_spawn_enemy_timer,
+            ).run_if(in_state(AppState::Gameplay)))
         ;
     }
 }

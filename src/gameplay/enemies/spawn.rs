@@ -1,3 +1,4 @@
+use std::ops::Deref;
 use bevy::prelude::*;
 use rand;
 use rand::Rng;
@@ -10,6 +11,9 @@ use crate::gameplay::enemies::components::{Enemy, EnemyType};
 use crate::gameplay::field::Field;
 use crate::gameplay::health::Health;
 use crate::gameplay::movement::MovementSpeed;
+
+#[derive(Resource)]
+pub struct SpawnEnemyTimer(pub Timer);
 
 #[derive(Event)]
 pub struct SpawnEnemy(pub EnemyType);
@@ -50,4 +54,17 @@ pub fn spawn_default_enemy(
             transform: Transform::from_translation(start_position).with_scale(Vec3::splat(0.1)),
         });
     }
+}
+
+pub fn reset_spawn_enemy_timer(
+    mut spawn_enemy_timer: ResMut<SpawnEnemyTimer>,
+) {}
+
+pub fn tick_spawn_enemy_timer(
+    mut spawn_enemy_timer: ResMut<SpawnEnemyTimer>,
+    time: Res<Time>,
+) {
+    spawn_enemy_timer.0.tick(time.delta());
+
+    // if spawn_enemy_timer
 }

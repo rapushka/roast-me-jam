@@ -98,7 +98,7 @@ pub fn seed_preview(
 
 fn get_scale(plant_type: PlantType) -> Vec3 {
     match plant_type {
-        PlantType::Fire => Vec3::splat(0.5),
+        PlantType::Fire => Vec3::splat(0.04),
         PlantType::Money => Vec3::splat(0.1),
     }
 }
