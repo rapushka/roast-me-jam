@@ -38,7 +38,7 @@ pub const SPAWN_ENEMY_DURATION_RANGE: Range<f32> = 8.0..10.0;
 
 // ## Plants
 // ### Fire
-pub const FIRE_DAMAGE: f32 = 40.0;
+pub const FIRE_DAMAGE: f32 = 75.0;
 pub const FIRE_TTL_IN_SECONDS: f32 = 2.0;
 pub const FIRE_PRICE: i32 = 3;
 

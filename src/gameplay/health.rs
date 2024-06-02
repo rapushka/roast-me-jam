@@ -1,3 +1,4 @@
+use bevy::audio::Volume;
 use bevy::prelude::*;
 use crate::{AppState, constants, OnAppState, Order};
 use crate::gameplay::collisions::Collision;
@@ -110,6 +111,13 @@ fn spawn_ash_baby(
                     })
                     .insert(OnAppState(AppState::Gameplay))
                 ;
+
+                commands.spawn(
+                    AudioBundle {
+                        source: asset_server.load("audio/ash_baby_cut.ogg"),
+                        settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.25)),
+                    }
+                );
             }
         }
     }
