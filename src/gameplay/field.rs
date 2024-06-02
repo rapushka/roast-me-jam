@@ -24,11 +24,11 @@ pub fn init_field(
     let center_x = window.width() / 2.0;
     let center_y = window.height() / 2.0;
 
-    let bounds = Aabb2d { min: Vec2::new(175.0, 120.0), max: Vec2::new(910.0, 560.0) };
+    let bounds = Aabb2d { min: Vec2::new(250.0, 120.0), max: Vec2::new(920.0, 560.0) };
     let screen_center = Vec3::new(center_x, center_y, 0.0);
 
     let seed_slots_position = Vec2::new(50.0, window.height() - 75.0);
-    
+
     commands.insert_resource(Field {
         zombies_spawn_x: window.width() + constants::ZOMBIE_SPAWN_POINT_OFFSET,
         zombie_spawn_y_range: Range { start: bounds.min.y, end: bounds.max.y },
