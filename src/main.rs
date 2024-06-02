@@ -17,6 +17,7 @@ mod utils;
 pub enum Order {
     Input,
     GameLogic,
+    Score,
     View,
     Cleanups,
 }
@@ -43,7 +44,7 @@ pub struct OnAppState(pub AppState);
 
 fn main() {
     App::new()
-        .configure_sets(Update, (Order::Input, Order::GameLogic, Order::View, Order::Cleanups).chain())
+        .configure_sets(Update, (Order::Input, Order::GameLogic, Order::Score, Order::View, Order::Cleanups).chain())
 
         .init_state::<AppState>()
         .init_state::<GameState>()

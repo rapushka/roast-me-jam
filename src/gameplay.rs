@@ -10,6 +10,7 @@ use crate::gameplay::gameplay_loop::GameplayLoopPlugin;
 use crate::gameplay::health::HealthPlugin;
 use crate::gameplay::movement::MovementPlugin;
 use crate::gameplay::plants::PlantsPlugin;
+use crate::gameplay::score::ScorePlugin;
 use crate::gameplay::seeds::*;
 
 pub(crate) mod gameplay_loop;
@@ -22,6 +23,7 @@ mod seeds;
 mod plants;
 pub mod collisions;
 mod health;
+mod score;
 
 pub struct GameplayPlugin;
 
@@ -37,6 +39,7 @@ impl Plugin for GameplayPlugin {
                 PlantsPlugin,
                 CollisionsPlugin,
                 HealthPlugin,
+                ScorePlugin,
             ))
 
             .add_systems(OnEnter(AppState::Loading), init_field)

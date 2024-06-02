@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::{AppState, constants, OnAppState};
+use crate::{AppState, constants, OnAppState, Order};
 use crate::gameplay::collisions::Collision;
 use crate::gameplay::enemies::components::Enemy;
 use crate::gameplay::plants::time_to_live::TimeToLive;
@@ -36,9 +36,12 @@ impl Plugin for HealthPlugin {
                 kill_entity_with_zero_hp,
                 spawn_ash_baby,
             ).chain()
-                .run_if(in_state(AppState::Gameplay)))
+                .run_if(in_state(AppState::Gameplay))
+                .in_set(Order::GameLogic))
 
-            .add_systems(PostUpdate, fulfill_kill_request.run_if(on_event::<Kill>()))
+            .add_systems(Update, fulfill_kill_request
+                .run_if(on_event::<Kill>())
+                .in_set(Order::Cleanups))
         ;
     }
 }
