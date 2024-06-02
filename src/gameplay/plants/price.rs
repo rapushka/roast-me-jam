@@ -42,7 +42,7 @@ fn visualise_plant_price(
     for (e, price) in seeds.iter() {
         commands.entity(e)
             .with_children(|parent| {
-                let transform = Transform::from_xyz(0.0, -46.0, 2.0);
+                let transform = Transform::from_xyz(0.0, -40.0, 2.0);
                 spawn::price_text(&asset_server, parent, price.0, transform);
             });
     }

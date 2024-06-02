@@ -123,13 +123,13 @@ fn spawn_money(
                 texture: asset_server.load("sprites/RoByn_small.png"),
                 ..default()
             })
-            .insert(Transform::from_translation(e.start_position).with_scale(Vec3::splat(0.15)))
+            .insert(Transform::from_translation(e.start_position).with_scale(Vec3::splat(0.2)))
             .insert(MoveToTarget(e.end_position))
             .insert(MovementSpeed(constants::MONEY_FALL_SPEED))
             .insert(TimeToLive(Timer::from_seconds(constants::MONEY_TTL, TimerMode::Once)))
             .insert(OnAppState(AppState::Gameplay))
             .insert(Clickable)
-            .insert(CircleCollider::new(20.0))
+            .insert(CircleCollider::new(30.0))
         ;
     }
 }
