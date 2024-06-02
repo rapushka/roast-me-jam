@@ -53,7 +53,7 @@ pub fn spawn_default_enemy(
         let path = match enemy_type {
             EnemyType::Casual => "sprites/casual_enemy_atlas.png",
             EnemyType::Cone => "sprites/cone_enemy_atlas.png",
-            EnemyType::Bucked => "sprites/casual_enemy_atlas.png",
+            EnemyType::Bucked => "sprites/bucket_enemy_atlas.png",
         };
         commands.add(AddAnimationCommand {
             entity,

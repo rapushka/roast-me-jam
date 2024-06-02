@@ -52,6 +52,7 @@ pub fn get_price(plant_type: PlantType) -> i32 {
     match plant_type {
         PlantType::Fire => constants::FIRE_PRICE,
         PlantType::Money => constants::MONEY_PLANT_PRICE,
-        PlantType::Lego => constants::LEGO_PRICE
+        PlantType::Lego => constants::LEGO_PRICE,
+        PlantType::SkibidiToilet => constants::SKIBIDI_TOILET_PRICE,
     }
 }

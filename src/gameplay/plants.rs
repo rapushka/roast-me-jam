@@ -10,6 +10,7 @@ pub mod price;
 mod fire_plant;
 mod money_plant;
 mod lego_plant;
+mod skibidi_toilet_plant;
 
 #[derive(Event)]
 pub struct SpawnPlant(pub PlantType);
@@ -25,6 +26,7 @@ pub enum PlantType {
     Fire,
     Money,
     Lego,
+    SkibidiToilet,
 }
 
 pub struct PlantsPlugin;
@@ -51,6 +53,7 @@ impl Plugin for PlantsPlugin {
                 fire_plant::spawn,
                 money_plant::spawn,
                 lego_plant::spawn,
+                skibidi_toilet_plant::spawn,
             )
                 .run_if(on_event::<SpawnPlant>()))
         ;

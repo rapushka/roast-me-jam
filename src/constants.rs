@@ -52,3 +52,6 @@ pub const MONEY_PLANT_SPAWN_MONEY_FALL_DISTANCE: f32 = 50.0;
 // ### Lego
 pub const LEGO_PRICE: i32 = 2;
 pub const LEGO_DAMAGE: f32 = 5.0;
+
+// ### Skibidi toilet
+pub const SKIBIDI_TOILET_PRICE: i32 = 5;
