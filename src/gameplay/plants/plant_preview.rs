@@ -1,5 +1,6 @@
 use bevy::math::bounding::Aabb2d;
 use bevy::prelude::*;
+use crate::constants;
 use crate::controls::Input;
 use crate::gameplay::field::Field;
 use crate::gameplay::seeds::initialization::{get_scale, get_sprite};
@@ -18,7 +19,8 @@ impl Plugin for PlantPreviewPlugin {
             .add_systems(OnEnter(PlantingState::Planting), create_plant_preview)
 
             .add_systems(Update, (
-                paint_plant_preview
+                paint_plant_preview,
+                track_position_plant_preview,
             ).run_if(in_state(PlantingState::Planting)))
 
             .add_systems(OnExit(PlantingState::Planting), destroy_plant_preview)
@@ -74,6 +76,16 @@ fn paint_plant_preview(
         } else {
             Color::Rgba { red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5 }.into()
         };
+    }
+}
+
+fn track_position_plant_preview(
+    mut previews: Query<&mut Transform, With<PlantPreview>>,
+    input: Res<Input>,
+) {
+    for mut transform in previews.iter_mut() {
+        let cursor_position = input.mouse_world_position.unwrap_or_default();
+        transform.translation = Vec3::new(cursor_position.x, cursor_position.y, constants::z_order::PLANT_PREVIEW);
     }
 }
 
