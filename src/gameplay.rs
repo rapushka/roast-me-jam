@@ -17,7 +17,7 @@ pub(crate) mod gameplay_loop;
 mod background;
 mod enemies;
 mod animations;
-mod field;
+pub mod field;
 mod movement;
 pub mod seeds;
 mod plants;

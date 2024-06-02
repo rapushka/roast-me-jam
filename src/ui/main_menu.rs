@@ -1,6 +1,7 @@
 use bevy::app::AppExit;
 use bevy::prelude::*;
-use crate::{AppState, constants, ui};
+use crate::{AppState, constants, OnAppState, ui};
+use crate::gameplay::field::Field;
 use crate::ui::{Clicked, create};
 
 pub struct MainMenuPlugin;
@@ -19,6 +20,7 @@ impl Plugin for MainMenuPlugin {
         app
             .add_systems(OnEnter(AppState::MainMenu), (
                 build_main_menu,
+                spawn_background,
             ))
 
             .add_systems(Update, (
@@ -48,8 +50,10 @@ pub fn build_main_menu(
     ))
         .with_children(|parent| {
             create::title(&asset_server, parent, "BrainRoasts vs PinosPrime".to_string());
-            create::image_button(&asset_server, parent, PlayButton, "ui/play-button-arrowhead.png", 100.0);
-            create::image_button(&asset_server, parent, QuitButton, "ui/exit.png", 100.0);
+            create::horizontal_layout(parent, |parent| {
+                create::image_button(&asset_server, parent, PlayButton, "ui/play-button-arrowhead.png", 100.0);
+                create::image_button(&asset_server, parent, QuitButton, "ui/exit.png", 100.0);
+            }) ;
         });
 }
 
@@ -84,4 +88,25 @@ pub fn on_quit_button_clicked(
             app_exit_event.send(AppExit);
         }
     }
+}
+
+fn spawn_background(
+    asset_server: Res<AssetServer>,
+    mut commands: Commands,
+    field: Res<Field>,
+) {
+    let screen_center = field.screen_center;
+    let position = Vec3 {
+        x: screen_center.x,
+        y: screen_center.y,
+        z: constants::z_order::BACKGROUND,
+    };
+    commands.spawn(Name::new("background"))
+        .insert(OnAppState(AppState::MainMenu))
+        .insert(SpriteBundle {
+            texture: asset_server.load("sprites/background_main_menu.png"),
+            ..default()
+        })
+        .insert(Transform::from_translation(position).with_scale(Vec3::splat(1.0)))
+    ;
 }
