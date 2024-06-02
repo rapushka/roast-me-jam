@@ -1,9 +1,12 @@
 use bevy::prelude::*;
-use bevy_editor_pls::egui::debug_text::print;
+
 use crate::{AppState, Order};
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
 use crate::gameplay::enemies::difficulty::Difficulty;
 use crate::gameplay::health::Kill;
+use crate::gameplay::score::ui::{build_score_text, update_score_view};
+
+pub mod ui;
 
 #[derive(Resource, Default)]
 pub struct Score(pub i32);
@@ -15,10 +18,14 @@ impl Plugin for ScorePlugin {
         app
             .init_resource::<Score>()
 
-            .add_systems(OnEnter(AppState::Gameplay), reset_score)
+            .add_systems(OnEnter(AppState::Gameplay), (
+                reset_score,
+                build_score_text,
+            ))
 
             .add_systems(Update, (
-                gain_score_from_kill_enemies
+                gain_score_from_kill_enemies,
+                update_score_view,
             )
                 .run_if(in_state(AppState::Gameplay))
                 .in_set(Order::Score))
@@ -46,8 +53,6 @@ fn gain_score_from_kill_enemies(
 
             gain *= (difficulty.0 * 100.0) as i32;
             score.0 += gain;
-
-            println!("score: {}", score.0)
         }
     }
 }
