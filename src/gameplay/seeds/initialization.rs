@@ -53,7 +53,7 @@ impl Command for SpawnSeedsSlotCommand {
 pub fn fill_seed_slots(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
-    slots: Query<(Entity, &SeedSlot), Added<SeedSlot>>,
+    slots: Query<(Entity, &SeedSlot), Changed<SeedSlot>>,
 ) {
     for (entity, seed) in slots.iter() {
         if let Some(plant_type) = seed.0 {
