@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use crate::{AppState, constants, OnAppState, Order};
 use crate::gameplay::collisions::Collision;
 use crate::gameplay::enemies::components::Enemy;
+use crate::gameplay::plants::projectiles::Projectile;
 use crate::gameplay::plants::time_to_live::TimeToLive;
 
 #[derive(Event)]
@@ -52,6 +53,7 @@ fn apply_collision_damage(
     damage_dealers: Query<(Entity, &CollisionDamage)>,
     mut enemies: Query<(Entity, &mut Health), With<Enemy>>,
     burning_things: Query<&BurnDamage>,
+    projectiles: Query<Entity, With<Projectile>>,
     time: Res<Time>,
 ) {
     for e in event.read() {
@@ -62,6 +64,10 @@ fn apply_collision_damage(
                 let is_burning = burning_things.contains(dealer_entity);
                 let cause_of_death = if is_burning { CauseOfDeath::Burn } else { CauseOfDeath::None };
                 commands.entity(enemy).insert(cause_of_death);
+
+                if let Ok(entity) = projectiles.get(dealer_entity) {
+                    commands.entity(entity).despawn_recursive();
+                }
             }
         }
     }

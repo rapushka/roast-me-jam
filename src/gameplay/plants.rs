@@ -2,11 +2,14 @@ use bevy::prelude::*;
 use crate::AppState;
 use crate::gameplay::plants::money_plant::{spawn_money_from_tree, SpawnMoneyFromTree, tick_money_plant_harvest};
 use crate::gameplay::plants::price::PricesPlugin;
+use crate::gameplay::plants::projectiles::move_projectiles_to_right;
 use crate::gameplay::plants::time_to_live::update_time_to_live;
 
 pub mod plant_preview;
 pub mod time_to_live;
 pub mod price;
+pub mod projectiles;
+
 mod fire_plant;
 mod money_plant;
 mod lego_plant;
@@ -47,6 +50,7 @@ impl Plugin for PlantsPlugin {
                 update_time_to_live,
                 tick_money_plant_harvest,
                 spawn_money_from_tree,
+                move_projectiles_to_right,
             ).run_if(in_state(AppState::Gameplay)))
 
             .add_systems(Update, (
