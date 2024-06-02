@@ -36,7 +36,7 @@ impl Plugin for PlantingPlugin {
                 plant,
             ).run_if(in_state(PlantingState::Planting)))
 
-            .add_systems(OnExit(PlantingState::Planting), reset_selected_seed)
+            .add_systems(OnEnter(PlantingState::Harvesting), reset_selected_seed)
         ;
     }
 }
