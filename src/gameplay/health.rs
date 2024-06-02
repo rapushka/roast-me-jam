@@ -49,16 +49,19 @@ impl Plugin for HealthPlugin {
 fn apply_collision_damage(
     mut commands: Commands,
     mut event: EventReader<Collision>,
-    damage_dealers: Query<&CollisionDamage>,
+    damage_dealers: Query<(Entity, &CollisionDamage)>,
     mut enemies: Query<(Entity, &mut Health), With<Enemy>>,
+    burning_things: Query<&BurnDamage>,
     time: Res<Time>,
 ) {
     for e in event.read() {
-        if let Ok(damage_dealer) = damage_dealers.get(e.0) {
+        if let Ok((dealer_entity, damage_dealer)) = damage_dealers.get(e.0) {
             if let Ok((enemy, mut enemy_health)) = enemies.get_mut(e.1) {
                 enemy_health.0 -= damage_dealer.0 * time.delta_seconds();
 
-                commands.entity(enemy).insert(CauseOfDeath::Burn);
+                let is_burning = burning_things.contains(dealer_entity);
+                let cause_of_death = if is_burning { CauseOfDeath::Burn } else { CauseOfDeath::None };
+                commands.entity(enemy).insert(cause_of_death);
             }
         }
     }

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use crate::AppState;
-use crate::gameplay::plants::money_plant::*;
+use crate::gameplay::plants::money_plant::{spawn_money_from_tree, SpawnMoneyFromTree, tick_money_plant_harvest};
 use crate::gameplay::plants::price::PricesPlugin;
 use crate::gameplay::plants::time_to_live::update_time_to_live;
 
@@ -9,6 +9,7 @@ pub mod time_to_live;
 pub mod price;
 mod fire_plant;
 mod money_plant;
+mod lego_plant;
 
 #[derive(Event)]
 pub struct SpawnPlant(pub PlantType);
@@ -49,6 +50,7 @@ impl Plugin for PlantsPlugin {
             .add_systems(Update, (
                 fire_plant::spawn,
                 money_plant::spawn,
+                lego_plant::spawn,
             )
                 .run_if(on_event::<SpawnPlant>()))
         ;

@@ -48,4 +48,5 @@ pub const MONEY_PLANT_SPAWN_MONEY_Y: Range<f32> = 15.0..16.0;
 pub const MONEY_PLANT_SPAWN_MONEY_FALL_DISTANCE: f32 = 50.0;
 
 // ### Lego
-pub const LEGO_PRICE: i32 = 4;
+pub const LEGO_PRICE: i32 = 2;
+pub const LEGO_DAMAGE: f32 = 5.0;
