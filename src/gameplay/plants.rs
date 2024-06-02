@@ -5,6 +5,7 @@ use crate::gameplay::plants::time_to_live::update_time_to_live;
 mod time_to_live;
 pub mod price;
 mod fire_plant;
+mod money_plant;
 
 #[derive(Event)]
 pub struct SpawnPlant(pub PlantType);
@@ -18,6 +19,7 @@ pub struct PlantPreview(pub PlantType);
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum PlantType {
     Fire,
+    Money,
 }
 
 pub struct PlantsPlugin;
@@ -37,6 +39,7 @@ impl Plugin for PlantsPlugin {
 
             .add_systems(Update, (
                 fire_plant::spawn,
+                money_plant::spawn,
             )
                 .run_if(on_event::<SpawnPlant>()))
         ;

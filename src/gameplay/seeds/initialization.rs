@@ -19,7 +19,7 @@ pub fn spawn_seeds_slots(
     let position = screen_center;
     commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Fire) });
     let position = position + Vec2::new(100.0, 0.0);
-    commands.add(SpawnSeedsSlotCommand { position, seed: None });
+    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Money) });
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: None });
 
@@ -88,7 +88,7 @@ pub fn seed_preview(
                     .insert(PlantPreview(seed.0))
                     .insert(SpriteBundle {
                         texture: asset_server.load(get_sprite(seed.0)),
-                        transform: Transform::from_translation(Vec3::new(0.0, 10.0, 1.0)).with_scale(Vec3::splat(0.5)),
+                        transform: Transform::from_translation(Vec3::new(0.0, 10.0, 1.0)).with_scale(get_scale(seed.0)),
                         ..default()
                     })
                 ;
@@ -96,8 +96,17 @@ pub fn seed_preview(
     }
 }
 
+fn get_scale(plant_type: PlantType) -> Vec3 {
+    match plant_type {
+        PlantType::Fire => Vec3::splat(0.5),
+        PlantType::Money => Vec3::splat(0.1),
+    }
+}
+
 pub fn get_sprite(plant_type: PlantType) -> &'static str {
     match plant_type {
-        PlantType::Fire => "sprites/plants/fire_2.png"
+        PlantType::Fire => "sprites/plants/fire_2.png",
+        PlantType::Money => "sprites/plants/money_flower.png",
     }
 } 
+

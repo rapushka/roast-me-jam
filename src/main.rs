@@ -1,8 +1,9 @@
-use crate::controls::ControlsPlugin;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use bevy_editor_pls::EditorPlugin;
 use bevy_text_animation::TextAnimatorPlugin;
+
+use crate::controls::ControlsPlugin;
 use crate::gameplay::GameplayPlugin;
 use crate::ui::UiPlugin;
 
@@ -50,8 +51,8 @@ fn main() {
         .add_plugins((
             // Dependencies
             DefaultPlugins,
-            EditorPlugin::default(),
-            TextAnimatorPlugin,
+            // EditorPlugin::default(),
+            // TextAnimatorPlugin,
         ))
 
         .add_plugins((
@@ -65,6 +66,8 @@ fn main() {
             spawn_camera,
             start_game,
         ))
+
+        .add_systems(Startup, setup_window)
 
         .add_systems(Update, (
             despawn_not_in_state,
@@ -107,3 +110,19 @@ pub fn despawn_not_in_state(
         }
     }
 }
+
+fn setup_window(
+    mut windows: Query<&mut Window>,
+) {
+    let mut window = windows.single_mut();
+
+    let width = 1280.0;
+    let height = 720.0;
+    if window.resolution.height() != height
+        || window.resolution.width() != width
+    {
+        window.resolution.set(width, height);
+        window.resizable = false;
+    }
+}
+

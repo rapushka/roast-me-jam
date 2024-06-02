@@ -51,5 +51,6 @@ fn visualise_plant_price(
 pub fn get_price(plant_type: PlantType) -> i32 {
     match plant_type {
         PlantType::Fire => constants::FIRE_PRICE,
+        PlantType::Money => constants::MONEY_PLANT_PRICE,
     }
 }
