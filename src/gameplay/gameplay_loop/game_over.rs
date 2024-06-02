@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use crate::gameplay::enemies::components::Enemy;
 use crate::gameplay::field::Field;
-use crate::GameState;
+use crate::{GameState, Order};
 
 mod ui;
 
@@ -17,8 +17,14 @@ impl Plugin for GameOverPlugin {
 
             .add_systems(Update, (
                 game_over_on_zombie_in_house,
+            )
+                .in_set(Order::GameLogic)
+                .run_if(in_state(GameState::Playing)))
+
+            .add_systems(Update, (
                 on_game_over,
             ).chain()
+                .in_set(Order::Cleanups)
                 .run_if(in_state(GameState::Playing)))
 
             .add_systems(OnEnter(GameState::GameOver), ui::build_game_over_screen)

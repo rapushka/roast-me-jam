@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use crate::AppState;
+use crate::{AppState, Order};
 use crate::gameplay::plants::money_plant::{spawn_money_from_tree, SpawnMoneyFromTree, tick_money_plant_harvest};
 use crate::gameplay::plants::price::PricesPlugin;
 use crate::gameplay::plants::projectiles::{move_projectiles_to_right, shoot, Shoot, shoot_periodically};
@@ -69,6 +69,7 @@ impl Plugin for PlantsPlugin {
                 skibidi_toilet_plant::spawn,
                 weezer::spawn,
             )
+                .in_set(Order::GameLogic)
                 .run_if(on_event::<SpawnPlant>()))
         ;
     }
