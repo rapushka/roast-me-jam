@@ -1,15 +1,19 @@
 use bevy::core::Name;
 use bevy::math::{Vec2, Vec3};
-use bevy::prelude::{Commands, EventReader, Res, TextureAtlasLayout, Timer, TimerMode, Transform};
+use bevy::prelude::*;
+
+use crate::{AppState, constants, OnAppState};
 use crate::controls::Input;
-use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
-use crate::{AppState, OnAppState};
-use crate::constants::{FIRE_DAMAGE, FIRE_TTL_IN_SECONDS};
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::CircleCollider;
-use crate::gameplay::health::CollisionDamage;
-use crate::gameplay::plants::time_to_live::TimeToLive;
+use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::utils::Vec2Ext;
+
+#[derive(Component)]
+pub struct MoneyPlantDropMoney(pub Timer);
+
+#[derive(Event)]
+pub struct SpawnMoneyFromTree(pub Vec3);
 
 pub fn spawn(
     mut commands: Commands,
@@ -26,6 +30,7 @@ pub fn spawn(
                 .insert(Plant(PlantType::Money))
                 .insert(OnAppState(AppState::Gameplay))
                 .insert(CircleCollider::new(75.0))
+                .insert(MoneyPlantDropMoney(Timer::from_seconds(constants::MONEY_PLANT_HARVEST, TimerMode::Repeating)))
                 .id()
                 ;
 
@@ -39,4 +44,26 @@ pub fn spawn(
             });
         }
     }
+}
+
+pub fn tick_money_plant_harvest(
+    mut plants: Query<(&mut MoneyPlantDropMoney, &Transform)>,
+    time: Res<Time>,
+    mut event_writer: EventWriter<SpawnMoneyFromTree>,
+) {
+    for (mut harvest_timer, transform) in plants.iter_mut() {
+        let mut harvest_timer = &mut harvest_timer.0;
+        harvest_timer.tick(time.delta());
+
+        if harvest_timer.finished() {
+            event_writer.send(SpawnMoneyFromTree(transform.translation));
+        }
+    }
+}
+
+pub fn spawn_money_from_tree(
+    mut commands: Commands,
+    mut event: EventReader<SpawnMoneyFromTree>,
+) {
+    
 }

@@ -35,3 +35,4 @@ pub const FIRE_PRICE: i32 = 3;
 
 // ### Money
 pub const MONEY_PLANT_PRICE: i32 = 6;
+pub const MONEY_PLANT_HARVEST: f32 = 6.0;

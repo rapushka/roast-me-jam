@@ -7,12 +7,19 @@ use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::field::Field;
 use crate::gameplay::movement::move_to_target::MoveToTarget;
 use crate::gameplay::movement::MovementSpeed;
+use crate::gameplay::plants::money_plant::SpawnMoneyFromTree;
 use crate::gameplay::plants::price::current_money::CurrentMoney;
 use crate::gameplay::plants::time_to_live::TimeToLive;
 use crate::ui::Clicked;
 
 #[derive(Event)]
 pub struct DropMoney;
+
+#[derive(Event)]
+pub struct SpawnMoney {
+    pub start_position: Vec3,
+    pub end_position: Vec3,
+}
 
 #[derive(Resource)]
 pub struct MoneyRain(pub Timer);
@@ -26,12 +33,14 @@ impl Plugin for MoneyRainPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_event::<DropMoney>()
+            .add_event::<SpawnMoney>()
 
             .add_systems(OnEnter(AppState::Gameplay), start_money_rain)
             .add_systems(Update, (
                 tick_money_rain,
                 drop_money_rain,
                 pick_money_droplet,
+                spawn_money,
             ).chain()
                 .run_if(in_state(AppState::Gameplay)))
             .add_systems(OnExit(AppState::Gameplay), stop_money_rain)
@@ -80,6 +89,7 @@ fn drop_money_rain(
     mut event: EventReader<DropMoney>,
     asset_server: Res<AssetServer>,
     field: Res<Field>,
+    mut spawn_money_event: EventWriter<SpawnMoney>,
 ) {
     for _ in event.read() {
         let mut rng = rand::thread_rng();
@@ -94,14 +104,27 @@ fn drop_money_rain(
         let mut start_position = end_position;
         start_position.y += constants::MONEY_RAIN_DROPLET_OFFSET_Y;
 
+        spawn_money_event.send(SpawnMoney {
+            start_position,
+            end_position,
+        });
+    }
+}
+
+fn spawn_money(
+    asset_server: Res<AssetServer>,
+    mut commands: Commands,
+    mut event: EventReader<SpawnMoney>,
+) {
+    for e in event.read() {
         commands.spawn(Name::new("money droplet"))
             .insert(MoneyDroplet)
             .insert(SpriteBundle {
                 texture: asset_server.load("sprites/RoByn_small.png"),
                 ..default()
             })
-            .insert(Transform::from_translation(start_position).with_scale(Vec3::splat(0.15)))
-            .insert(MoveToTarget(end_position))
+            .insert(Transform::from_translation(e.start_position).with_scale(Vec3::splat(0.15)))
+            .insert(MoveToTarget(e.end_position))
             .insert(MovementSpeed(constants::MONEY_FALL_SPEED))
             .insert(TimeToLive(Timer::from_seconds(constants::MONEY_TTL, TimerMode::Once)))
             .insert(OnAppState(AppState::Gameplay))
