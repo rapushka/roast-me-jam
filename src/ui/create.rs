@@ -51,7 +51,7 @@ fn button_internal<C>(
         },
     ))
         .with_children(|parent| {
-            text(asset_server, string, parent, 32.0);
+            light_text(asset_server, string, parent, 32.0);
         });
 }
 

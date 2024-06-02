@@ -22,7 +22,7 @@ pub fn spawn_seeds_slots(
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Money) });
     let position = position + Vec2::new(100.0, 0.0);
-    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Lego) });
+    commands.add(SpawnSeedsSlotCommand { position, seed: Some(PlantType::Weezer) });
 
     assert_eq!(constants::SEED_SLOT_COUNT, 3);
 }
@@ -104,6 +104,7 @@ pub fn get_scale(plant_type: PlantType) -> Vec3 {
         PlantType::Money => Vec3::splat(0.1),
         PlantType::Lego => Vec3::splat(0.04),
         PlantType::SkibidiToilet => Vec3::splat(0.04),
+        PlantType::Weezer => Vec3::splat(0.2),
     }
 }
 
@@ -113,6 +114,7 @@ pub fn get_sprite(plant_type: PlantType) -> &'static str {
         PlantType::Money => "sprites/plants/money_flower.png",
         PlantType::Lego => "sprites/plants/lego.png",
         PlantType::SkibidiToilet => "sprites/plants/skibidi toilet.png",
+        PlantType::Weezer => "sprites/plants/weezer.png",
     }
 } 
 
