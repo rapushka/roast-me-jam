@@ -1,6 +1,7 @@
 use bevy::asset::AssetServer;
 use bevy::ecs::system::Command;
 use bevy::prelude::*;
+use rand::Rng;
 use crate::{AppState, constants, OnAppState};
 use crate::controls::Clickable;
 use crate::gameplay::collisions::components::CircleCollider;
@@ -106,6 +107,7 @@ pub fn get_scale(plant_type: PlantType) -> Vec3 {
         PlantType::SkibidiToilet => Vec3::splat(0.04),
         PlantType::Weezer => Vec3::splat(0.2),
         PlantType::SkibidiToiletLefthand => Vec3::splat(0.04),
+        PlantType::Zombie => Vec3::splat(0.04),
     }
 }
 
@@ -117,6 +119,21 @@ pub fn get_sprite(plant_type: PlantType) -> &'static str {
         PlantType::SkibidiToilet => "sprites/plants/skibidi toilet.png",
         PlantType::Weezer => "sprites/plants/weezer.png",
         PlantType::SkibidiToiletLefthand => "sprites/plants/skibidi toilet left.png",
+        PlantType::Zombie => "sprites/casual_enemy.png",
+    }
+}
+
+pub fn pick_random_plant() -> PlantType {
+    let mut rng = rand::thread_rng();
+    match rng.gen_range(0..=6) {
+        0 => PlantType::Fire,
+        1 => PlantType::Money,
+        2 => PlantType::Lego,
+        3 => PlantType::SkibidiToilet,
+        4 => PlantType::Weezer,
+        5 => PlantType::SkibidiToiletLefthand,
+        6 => PlantType::Zombie,
+        _ => panic!("nah:("),
     }
 } 
 

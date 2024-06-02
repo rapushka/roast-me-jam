@@ -6,10 +6,10 @@ use crate::controls::Clickable;
 use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::movement::move_to_target::MoveToTarget;
 use crate::gameplay::movement::MovementSpeed;
-use crate::gameplay::plants::PlantType;
 use crate::gameplay::plants::price::money_rain::seed_rain::picking::PickingDroppedSeedPlugin;
 use crate::gameplay::plants::time_to_live::TimeToLive;
 use crate::gameplay::seeds::components::Seed;
+use crate::gameplay::seeds::initialization;
 
 pub mod picking;
 
@@ -44,7 +44,7 @@ fn drop_seed(
     mut event: EventReader<DropSeed>,
 ) {
     for e in event.read() {
-        let plant_type = pick_random_plant();
+        let plant_type = initialization::pick_random_plant();
 
         commands.spawn(Name::new("seed"))
             .insert(Seed(plant_type))
@@ -61,18 +61,5 @@ fn drop_seed(
             .insert(Clickable)
             .insert(CircleCollider::new(30.0))
         ;
-    }
-}
-
-fn pick_random_plant() -> PlantType {
-    let mut rng = rand::thread_rng();
-    match rng.gen_range(0..=5) {
-        0 => PlantType::Fire,
-        1 => PlantType::Money,
-        2 => PlantType::Lego,
-        3 => PlantType::SkibidiToilet,
-        4 => PlantType::Weezer,
-        5 => PlantType::SkibidiToiletLefthand,
-        _ => panic!("nah:("),
     }
 }

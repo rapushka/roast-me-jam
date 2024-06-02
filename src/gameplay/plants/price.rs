@@ -55,5 +55,6 @@ pub fn get_price(plant_type: PlantType) -> i32 {
         PlantType::SkibidiToilet => constants::SKIBIDI_TOILET_PRICE,
         PlantType::Weezer => constants::WEEZER_PRICE,
         PlantType::SkibidiToiletLefthand => constants::SKIBIDI_TOILET_LEFT_PRICE,
+        PlantType::Zombie => constants::ZOMBIE_PRICE,
     }
 }

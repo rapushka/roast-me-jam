@@ -16,6 +16,7 @@ mod lego_plant;
 mod skibidi_toilet_plant;
 mod weezer;
 mod skibidi_toilet_left_hand_plant;
+mod zombie;
 
 #[derive(Event)]
 pub struct SpawnPlant(pub PlantType);
@@ -34,6 +35,7 @@ pub enum PlantType {
     SkibidiToilet,
     Weezer,
     SkibidiToiletLefthand,
+    Zombie,
 }
 
 pub struct PlantsPlugin;
@@ -71,6 +73,7 @@ impl Plugin for PlantsPlugin {
                 skibidi_toilet_plant::spawn,
                 weezer::spawn,
                 skibidi_toilet_left_hand_plant::spawn,
+                zombie::spawn,
             )
                 .in_set(Order::GameLogic)
                 .run_if(on_event::<SpawnPlant>()))

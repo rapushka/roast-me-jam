@@ -63,6 +63,9 @@ pub const SKIBIDI_TOILET_LEFT_PRICE: i32 = 6;
 // ### Weezer
 pub const WEEZER_PRICE: i32 = 10;
 
+// ### Zombie
+pub const ZOMBIE_PRICE: i32 = 5;
+
 // ## Projectiles
 // ### Nuke
 pub const NUKE_MOVEMENT_SPEED: f32 = 100.0;

@@ -20,14 +20,37 @@ pub struct SpawnEnemyTimer(pub Timer);
 #[derive(Event)]
 pub struct SpawnEnemy(pub EnemyType);
 
+#[derive(Event)]
+pub struct SpawnEnemyOnPosition(pub EnemyType, pub Vec3);
+
 pub fn spawn_default_enemy(
-    mut commands: Commands,
     mut event_reader: EventReader<SpawnEnemy>,
+    mut event_write: EventWriter<SpawnEnemyOnPosition>,
     field: Res<Field>,
 ) {
     let mut rng = rand::thread_rng();
 
     for e in event_reader.read() {
+        let y_range = field.zombie_spawn_y_range.clone();
+        let y = rng.gen_range(y_range);
+
+        let start_position = Vec3::new(field.zombies_spawn_x, y, constants::z_order::ENEMIES);
+
+        let enemy_type = e.0.clone();
+
+        event_write.send(SpawnEnemyOnPosition(enemy_type, start_position));
+    }
+}
+
+pub fn spawn_enemy_on_position(
+    mut commands: Commands,
+    mut event_reader: EventReader<SpawnEnemyOnPosition>,
+) {
+    let mut rng = rand::thread_rng();
+
+    for e in event_reader.read() {
+        let start_position = e.1;
+
         let enemy_type = e.0.clone();
 
         let health = match enemy_type {
@@ -36,10 +59,6 @@ pub fn spawn_default_enemy(
             EnemyType::Bucked => BUCKET_ZOMBIE_HEALTH,
         };
 
-        let y_range = field.zombie_spawn_y_range.clone();
-        let y = rng.gen_range(y_range);
-
-        let start_position = Vec3::new(field.zombies_spawn_x, y, constants::z_order::ENEMIES);
         let speed = rng.gen_range(constants::CASUAL_ZOMBIE_MOVEMENT_SPEED);
 
         let entity = commands.spawn(Name::new("enemy"))

@@ -5,7 +5,7 @@ use crate::gameplay::enemies::difficulty::DifficultyPlugin;
 use crate::gameplay::enemies::spawn::*;
 
 pub mod components;
-mod spawn;
+pub mod spawn;
 pub mod difficulty;
 
 pub struct EnemiesPlugin;
@@ -14,6 +14,7 @@ impl Plugin for EnemiesPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_event::<SpawnEnemy>()
+            .add_event::<SpawnEnemyOnPosition>()
 
             .add_plugins(DifficultyPlugin)
             .insert_resource(SpawnEnemyTimer(Timer::from_seconds(0.0, TimerMode::Repeating)))
@@ -25,6 +26,10 @@ impl Plugin for EnemiesPlugin {
             .add_systems(Update, (
                 spawn_default_enemy,
             ).run_if(on_event::<SpawnEnemy>()))
+
+            .add_systems(Update, (
+                spawn_enemy_on_position,
+            ).run_if(on_event::<SpawnEnemyOnPosition>()))
 
             .add_systems(Update, (
                 tick_spawn_enemy_timer,
