@@ -11,7 +11,7 @@ pub fn build_game_over_screen(
     score: Res<Score>,
 ) {
     for e in game_over_event.read() {
-        let text = format!("You lost:(\nbecause of: {}\nFinal score: {}", e.0, score.0);
+        let text = format!("You lost:(\ncuz: {}\nFinal score: {}", e.0, score.0);
 
         commands.spawn((
             Name::new("Game Over Screen"),
@@ -22,7 +22,7 @@ pub fn build_game_over_screen(
             OnAppState(AppState::Gameplay),
         ))
             .with_children(|parent| {
-                ui::create::text(&asset_server, text, parent, 64.0);
+                ui::create::light_text(&asset_server, text, parent, 64.0);
                 ui::create::button(&asset_server, parent, "Back To Main Menu".to_string(), EndGameButton);
             });
         return;
