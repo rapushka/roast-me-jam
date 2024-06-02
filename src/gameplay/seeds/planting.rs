@@ -35,7 +35,8 @@ impl Plugin for PlantingPlugin {
 
             .add_systems(Update, (
                 start_planting,
-            ).run_if(in_state(AppState::Gameplay)))
+            ).run_if(in_state(AppState::Gameplay))
+                .run_if(not(in_state(PlantingState::Picking))))
 
             .add_systems(Update, (
                 plant,
