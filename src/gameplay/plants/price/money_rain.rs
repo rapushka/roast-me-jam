@@ -1,7 +1,7 @@
 use std::time::Duration;
 use bevy::prelude::*;
 use rand::Rng;
-use crate::{AppState, constants};
+use crate::{AppState, constants, OnAppState};
 use crate::gameplay::field::Field;
 use crate::gameplay::movement::move_to_target::MoveToTarget;
 use crate::gameplay::movement::MovementSpeed;
@@ -95,6 +95,7 @@ fn drop_money_rain(
             .insert(MoveToTarget(end_position))
             .insert(MovementSpeed(constants::MONEY_FALL_SPEED))
             .insert(TimeToLive(Timer::from_seconds(constants::MONEY_TTL, TimerMode::Once)))
+            .insert(OnAppState(AppState::Gameplay))
         ;
     }
 }
