@@ -20,6 +20,8 @@ pub fn spawn_seeds_slots(
     commands.add(SpawnSeedsSlotCommand { position, seed: None });
     let position = position + Vec2::new(100.0, 0.0);
     commands.add(SpawnSeedsSlotCommand { position, seed: None });
+
+    assert_eq!(constants::SEED_SLOT_COUNT, 3);
 }
 
 struct SpawnSeedsSlotCommand {

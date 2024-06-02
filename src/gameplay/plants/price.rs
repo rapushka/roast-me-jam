@@ -1,7 +1,10 @@
 use bevy::prelude::*;
+use crate::AppState;
+use crate::gameplay::plants::price::current_money::*;
 use crate::gameplay::seeds::components::Seed;
 
 mod spawn;
+pub mod current_money;
 
 #[derive(Component)]
 pub struct Price(pub i32);
@@ -11,7 +14,12 @@ pub struct PricesPlugin;
 impl Plugin for PricesPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(Update, visualise_plant_price)
+            .add_systems(OnEnter(AppState::Gameplay), spawn_current_money)
+
+            .add_systems(Update, (
+                visualise_plant_price,
+                update_current_money,
+            ))
         ;
     }
 }
