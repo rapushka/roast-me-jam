@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use crate::AppState;
 use crate::controls::Input;
 use crate::gameplay::plants::{PlantType, SpawnPlant};
+use crate::gameplay::plants::plant_preview::PlantPreview;
 use crate::gameplay::seeds::components::Seed;
 use crate::ui::Clicked;
 
@@ -79,10 +80,15 @@ fn plant(
     mut selected_seed: ResMut<SelectedSeed>,
     mut next_state: ResMut<NextState<PlantingState>>,
     mut spawn_plant_event: EventWriter<SpawnPlant>,
+    previews: Query<&PlantPreview>,
 ) {
     if input.left_click {
-        let plant_type = selected_seed.0.unwrap();
-        spawn_plant_event.send(SpawnPlant(plant_type));
+        let preview = previews.get_single().unwrap();
+
+        if preview.can_plant {
+            let plant_type = selected_seed.0.unwrap();
+            spawn_plant_event.send(SpawnPlant(plant_type));
+        } else {}
         next_state.set(PlantingState::Harvesting);
     }
 }

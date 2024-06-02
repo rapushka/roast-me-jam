@@ -61,16 +61,17 @@ fn destroy_plant_preview(
 }
 
 fn paint_plant_preview(
-    mut previews: Query<&mut Sprite, With<PlantPreview>>,
+    mut previews: Query<(&mut Sprite, &mut PlantPreview), With<PlantPreview>>,
     field: Res<Field>,
     input: Res<Input>,
 ) {
-    for mut sprite in previews.iter_mut() {
+    for (mut sprite, mut plant_preview) in previews.iter_mut() {
         let cursor_position = input.mouse_world_position.unwrap_or_default();
         let bounds = field.plants_bounds;
 
         let valid_position = contains(bounds, cursor_position);
 
+        plant_preview.can_plant = valid_position;
         sprite.color = if valid_position {
             Color::Rgba { red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5 }.into()
         } else {
