@@ -5,7 +5,7 @@ use crate::constants::{FIRE_DAMAGE, FIRE_TTL_IN_SECONDS};
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::*;
-use crate::gameplay::health::{BurnDamage, CollisionDamage};
+use crate::gameplay::health::{BurnDamage, CollisionDamage, PersistentDamage};
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::gameplay::plants::time_to_live::TimeToLive;
 use crate::utils::Vec2Ext;
@@ -27,6 +27,7 @@ pub fn spawn(
                 .insert(CircleCollider::new(75.0))
                 .insert(CollisionDamage(FIRE_DAMAGE))
                 .insert(BurnDamage)
+                .insert(PersistentDamage)
                 .insert(TimeToLive(Timer::from_seconds(FIRE_TTL_IN_SECONDS, TimerMode::Once)))
                 .id()
                 ;

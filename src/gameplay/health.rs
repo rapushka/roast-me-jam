@@ -17,6 +17,9 @@ pub struct CollisionDamage(pub f32);
 #[derive(Component)]
 pub struct BurnDamage;
 
+#[derive(Component)]
+pub struct PersistentDamage;
+
 pub struct HealthPlugin;
 
 #[derive(Component, PartialEq)]
@@ -53,13 +56,18 @@ fn apply_collision_damage(
     damage_dealers: Query<(Entity, &CollisionDamage)>,
     mut enemies: Query<(Entity, &mut Health), With<Enemy>>,
     burning_things: Query<&BurnDamage>,
+    persistent: Query<&PersistentDamage>,
     projectiles: Query<Entity, With<Projectile>>,
     time: Res<Time>,
 ) {
     for e in event.read() {
         if let Ok((dealer_entity, damage_dealer)) = damage_dealers.get(e.0) {
             if let Ok((enemy, mut enemy_health)) = enemies.get_mut(e.1) {
-                enemy_health.0 -= damage_dealer.0 * time.delta_seconds();
+                let damage = match persistent.get(dealer_entity) {
+                    Ok(_) => damage_dealer.0 * time.delta_seconds(),
+                    Err(..) => damage_dealer.0,
+                };
+                enemy_health.0 -= damage;
 
                 let is_burning = burning_things.contains(dealer_entity);
                 let cause_of_death = if is_burning { CauseOfDeath::Burn } else { CauseOfDeath::None };

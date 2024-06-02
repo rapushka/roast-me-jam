@@ -7,7 +7,7 @@ use crate::constants::LEGO_DAMAGE;
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::CircleCollider;
-use crate::gameplay::health::CollisionDamage;
+use crate::gameplay::health::{CollisionDamage, PersistentDamage};
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
 use crate::utils::Vec2Ext;
 
@@ -27,6 +27,7 @@ pub fn spawn(
                 .insert(OnAppState(AppState::Gameplay))
                 .insert(CircleCollider::new(75.0))
                 .insert(CollisionDamage(LEGO_DAMAGE))
+                .insert(PersistentDamage)
                 .id()
                 ;
 

@@ -1,12 +1,14 @@
 use bevy::core::Name;
 use bevy::math::{Vec2, Vec3};
-use bevy::prelude::{Commands, EventReader, Res, TextureAtlasLayout, Transform};
+use bevy::prelude::{Commands, EventReader, Res, TextureAtlasLayout, TimerMode, Transform};
+use bevy::time::Timer;
 
-use crate::{AppState, OnAppState};
+use crate::{AppState, constants, OnAppState};
 use crate::controls::Input;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::plants::{Plant, PlantType, SpawnPlant};
+use crate::gameplay::plants::projectiles::{Projectile, Shooter};
 use crate::utils::Vec2Ext;
 
 pub fn spawn(
@@ -24,6 +26,11 @@ pub fn spawn(
                 .insert(Plant(PlantType::SkibidiToilet))
                 .insert(OnAppState(AppState::Gameplay))
                 .insert(CircleCollider::new(75.0))
+                .insert(Shooter {
+                    timer: Timer::from_seconds(constants::SKIBIDI_TOILET_ROF, TimerMode::Repeating),
+                    projectile: Projectile::Nuke,
+                    offset: Vec2::new(10.0, 10.0),
+                })
                 .id()
                 ;
 

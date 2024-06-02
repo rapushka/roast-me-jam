@@ -55,3 +55,9 @@ pub const LEGO_DAMAGE: f32 = 5.0;
 
 // ### Skibidi toilet
 pub const SKIBIDI_TOILET_PRICE: i32 = 5;
+pub const SKIBIDI_TOILET_ROF: f32 = 1.0;
+
+// ## Projectiles
+// ### Nuke
+pub const NUKE_MOVEMENT_SPEED: f32 = 100.0;
+pub const NUKE_DAMAGE: f32 = 50.0;
