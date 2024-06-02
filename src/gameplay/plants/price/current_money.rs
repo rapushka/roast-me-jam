@@ -22,6 +22,7 @@ pub fn spawn_current_money(
         .insert(Transform::from_translation(spawn_point))
         .insert(OnAppState(AppState::Gameplay))
         .insert(GlobalTransform::default())
+        .insert(InheritedVisibility::default())
         .with_children(|parent| {
             parent.spawn(Name::new("image"))
                 .insert(SpriteBundle {
