@@ -26,7 +26,7 @@ pub const DIFFICULTY_INCREMENT: f32 = 0.02;
 pub const MONEY_RAIN_DROPLET_OFFSET_Y: f32 = 650.0;
 pub const MONEY_FALL_SPEED: f32 = 100.0;
 pub const MONEY_TTL: f32 = 10.0;
-pub const SPAWN_SEED_CHANCE: f32 = 0.1;
+pub const SPAWN_SEED_CHANCE: f32 = 10.1;
 
 // ## Zombie
 pub const CASUAL_ZOMBIE_MOVEMENT_SPEED: Range<f32> = 20.0..50.0;

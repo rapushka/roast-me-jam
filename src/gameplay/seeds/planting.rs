@@ -19,6 +19,7 @@ pub enum PlantingState {
     Harvesting,
     Buying,
     Planting,
+    Picking,
 }
 
 pub struct PlantingPlugin;
