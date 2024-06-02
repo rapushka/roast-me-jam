@@ -1,4 +1,5 @@
 use std::time::Duration;
+use bevy::audio::Volume;
 
 use bevy::prelude::*;
 use rand::Rng;
@@ -143,6 +144,7 @@ fn spawn_money(
 
 fn pick_money_droplet(
     mut commands: Commands,
+    asset_server: Res<AssetServer>,
     mut event: EventReader<Clicked>,
     coins: Query<Entity, With<MoneyDroplet>>,
     mut money: Query<&mut CurrentMoney>,
@@ -153,6 +155,13 @@ fn pick_money_droplet(
             money.0 += 1;
 
             commands.entity(coin).despawn_recursive();
+
+            commands.spawn(
+                AudioBundle {
+                    source: asset_server.load("audio/pop.ogg"),
+                    settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.1)),
+                }
+            );
         }
     }
 }

@@ -1,3 +1,4 @@
+use bevy::audio::Volume;
 use bevy::prelude::*;
 
 use crate::{AppState, OnAppState};
@@ -12,6 +13,7 @@ use crate::utils::Vec2Ext;
 
 pub fn spawn(
     mut commands: Commands,
+    asset_server: Res<AssetServer>,
     mut event: EventReader<SpawnPlant>,
     input: Res<Input>,
 ) {
@@ -40,6 +42,13 @@ pub fn spawn(
                 fps: 8.0,
                 frames_count: 2,
             });
+
+            commands.spawn(
+                AudioBundle {
+                    source: asset_server.load("audio/sunshine.ogg"),
+                    settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.1)),
+                }
+            );
         }
     }
 }

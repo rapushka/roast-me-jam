@@ -48,7 +48,7 @@ fn game_over_on_zombie_in_house(
             
             commands.spawn(
                 AudioBundle {
-                    source: asset_server.load("audio/womp.ogg"),
+                    source: asset_server.load("audio/laugh.ogg"),
                     settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.25)),
                 }
             );
