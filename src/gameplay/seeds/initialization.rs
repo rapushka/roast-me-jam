@@ -105,6 +105,7 @@ pub fn get_scale(plant_type: PlantType) -> Vec3 {
         PlantType::Lego => Vec3::splat(0.04),
         PlantType::SkibidiToilet => Vec3::splat(0.04),
         PlantType::Weezer => Vec3::splat(0.2),
+        PlantType::SkibidiToiletLefthand => Vec3::splat(0.04),
     }
 }
 
@@ -115,6 +116,7 @@ pub fn get_sprite(plant_type: PlantType) -> &'static str {
         PlantType::Lego => "sprites/plants/lego.png",
         PlantType::SkibidiToilet => "sprites/plants/skibidi toilet.png",
         PlantType::Weezer => "sprites/plants/weezer.png",
+        PlantType::SkibidiToiletLefthand => "sprites/plants/skibidi toilet left.png",
     }
 } 
 

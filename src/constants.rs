@@ -57,10 +57,14 @@ pub const LEGO_DAMAGE: f32 = 5.0;
 pub const SKIBIDI_TOILET_PRICE: i32 = 5;
 pub const SKIBIDI_TOILET_ROF: f32 = 1.0;
 
+// ### Skibidi toilet left handed
+pub const SKIBIDI_TOILET_LEFT_PRICE: i32 = 6;
+
 // ### Weezer
 pub const WEEZER_PRICE: i32 = 10;
 
 // ## Projectiles
 // ### Nuke
 pub const NUKE_MOVEMENT_SPEED: f32 = 100.0;
+pub const NUKE_LEFT_MOVEMENT_SPEED: f32 = -100.0;
 pub const NUKE_DAMAGE: f32 = 5.0;

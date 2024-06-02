@@ -66,12 +66,13 @@ fn drop_seed(
 
 fn pick_random_plant() -> PlantType {
     let mut rng = rand::thread_rng();
-    match rng.gen_range(0..=4) {
+    match rng.gen_range(0..=5) {
         0 => PlantType::Fire,
         1 => PlantType::Money,
         2 => PlantType::Lego,
         3 => PlantType::SkibidiToilet,
         4 => PlantType::Weezer,
+        5 => PlantType::SkibidiToiletLefthand,
         _ => panic!("nah:("),
     }
 }

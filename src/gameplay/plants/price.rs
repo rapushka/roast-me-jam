@@ -9,7 +9,7 @@ use crate::gameplay::seeds::components::Seed;
 mod spawn;
 pub mod current_money;
 pub mod spend;
-pub mod money_rain; 
+pub mod money_rain;
 
 #[derive(Component)]
 pub struct Price(pub i32);
@@ -22,7 +22,6 @@ impl Plugin for PricesPlugin {
             .add_plugins((
                 SpendPlugin,
                 MoneyRainPlugin,
-            
             ))
             .add_systems(OnEnter(AppState::Gameplay), spawn_current_money)
 
@@ -55,5 +54,6 @@ pub fn get_price(plant_type: PlantType) -> i32 {
         PlantType::Lego => constants::LEGO_PRICE,
         PlantType::SkibidiToilet => constants::SKIBIDI_TOILET_PRICE,
         PlantType::Weezer => constants::WEEZER_PRICE,
+        PlantType::SkibidiToiletLefthand => constants::SKIBIDI_TOILET_LEFT_PRICE,
     }
 }

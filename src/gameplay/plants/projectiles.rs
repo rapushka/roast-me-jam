@@ -21,6 +21,7 @@ pub struct Shoot {
 #[derive(Component, Clone, Copy)]
 pub enum Projectile {
     Nuke,
+    NukeLeftHand,
 }
 
 pub fn move_projectiles_to_right(
@@ -79,23 +80,27 @@ pub fn shoot(
 pub fn get_sprite(projectile: Projectile) -> &'static str {
     match projectile {
         Projectile::Nuke => "sprites/plants/nuke.png",
+        Projectile::NukeLeftHand => "sprites/plants/nuke.png",
     }
 }
 
 pub fn get_scale(projectile: Projectile) -> Vec3 {
     match projectile {
         Projectile::Nuke => Vec3::splat(0.1),
+        Projectile::NukeLeftHand => Vec3::splat(0.1),
     }
 }
 
 pub fn get_movement_speed(projectile: Projectile) -> f32 {
     match projectile {
         Projectile::Nuke => constants::NUKE_MOVEMENT_SPEED,
+        Projectile::NukeLeftHand => constants::NUKE_LEFT_MOVEMENT_SPEED,
     }
 }
 
 pub fn get_damage(projectile: Projectile) -> f32 {
     match projectile {
         Projectile::Nuke => constants::NUKE_DAMAGE,
+        Projectile::NukeLeftHand => constants::NUKE_DAMAGE,
     }
 }

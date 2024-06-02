@@ -52,7 +52,7 @@ fn main() {
         .add_plugins((
             // Dependencies
             DefaultPlugins,
-            EditorPlugin::default(),
+            // EditorPlugin::default(),
             // TextAnimatorPlugin,
         ))
 
