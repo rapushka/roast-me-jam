@@ -2,12 +2,14 @@ use bevy::prelude::*;
 use crate::{AppState, constants};
 use crate::gameplay::plants::PlantType;
 use crate::gameplay::plants::price::current_money::*;
+use crate::gameplay::plants::price::money_rain::MoneyRainPlugin;
 use crate::gameplay::plants::price::spend::SpendPlugin;
 use crate::gameplay::seeds::components::Seed;
 
 mod spawn;
 pub mod current_money;
 pub mod spend;
+pub mod money_rain; 
 
 #[derive(Component)]
 pub struct Price(pub i32);
@@ -17,7 +19,10 @@ pub struct PricesPlugin;
 impl Plugin for PricesPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_plugins(SpendPlugin)
+            .add_plugins((
+                SpendPlugin,
+                MoneyRainPlugin,
+            ))
             
             .add_systems(OnEnter(AppState::Gameplay), spawn_current_money)
 
