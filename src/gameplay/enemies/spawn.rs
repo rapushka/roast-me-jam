@@ -85,7 +85,9 @@ pub fn tick_spawn_enemy_timer(
         let mut rng = rand::thread_rng();
         let chance = rng.gen_range(0.0..=difficulty.0);
 
-        let enemy_type = if chance > 1.0 {
+        let enemy_type = if chance > 5.0 {
+            EnemyType::Bucked
+        } else if chance > 1.0 {
             EnemyType::Cone
         } else {
             EnemyType::Casual
