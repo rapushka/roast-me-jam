@@ -1,3 +1,4 @@
+use bevy::audio::Volume;
 use bevy::prelude::*;
 
 use crate::gameplay::plants::price::current_money::CurrentMoney;
@@ -15,12 +16,14 @@ impl Plugin for SpendPlugin {
             )
 
             .add_systems(Update, spend_money.run_if(on_event::<SpawnPlant>()))
-        
+
         ;
     }
 }
 
 fn try_buy_plant(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
     mut next_state: ResMut<NextState<PlantingState>>,
     selected_seed: Res<SelectedSeed>,
     current_money: Query<&CurrentMoney>,
@@ -30,9 +33,22 @@ fn try_buy_plant(
     let current_money = current_money.single();
     if current_money.0 >= price {
         next_state.set(PlantingState::Planting);
+
+        commands.spawn(
+            AudioBundle {
+                source: asset_server.load("audio/pop.ogg"),
+                settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.1)),
+            }
+        );
     } else {
-        println!("nu-uh, no money");
         next_state.set(PlantingState::Harvesting);
+
+        commands.spawn(
+            AudioBundle {
+                source: asset_server.load("audio/scratch.ogg"),
+                settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.1)),
+            }
+        );
     }
 }
 

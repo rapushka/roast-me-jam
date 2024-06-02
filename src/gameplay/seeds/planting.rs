@@ -1,4 +1,5 @@
 use bevy::app::{App, Plugin};
+use bevy::audio::Volume;
 use bevy::prelude::*;
 use crate::AppState;
 use crate::controls::Input;
@@ -54,6 +55,8 @@ fn init_planting_state(
 }
 
 fn start_planting(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
     mut clicked_event: EventReader<Clicked>,
     seeds: Query<&Seed, With<SeedInHand>>,
     mut selected_seed: ResMut<SelectedSeed>,
@@ -64,6 +67,14 @@ fn start_planting(
             if let Some(previous_plant_type) = selected_seed.0 {
                 if previous_plant_type == clicked_seed.0 {
                     next_state.set(PlantingState::Harvesting);
+
+                    commands.spawn(
+                        AudioBundle {
+                            source: asset_server.load("audio/pop.ogg"),
+                            settings: PlaybackSettings::DESPAWN.with_volume(Volume::new(0.1)),
+                        }
+                    );
+
                     continue;
                 }
             }
