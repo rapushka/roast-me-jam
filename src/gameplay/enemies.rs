@@ -1,9 +1,11 @@
 use bevy::prelude::*;
 use components::EnemyType;
+use crate::gameplay::enemies::difficulty::DifficultyPlugin;
 use crate::gameplay::enemies::spawn::{spawn_default_enemy, SpawnEnemy};
 
 pub mod components;
 mod spawn;
+pub mod difficulty;
 
 pub struct EnemiesPlugin;
 
@@ -12,7 +14,9 @@ impl Plugin for EnemiesPlugin {
         app
             .add_event::<SpawnEnemy>()
 
-            .add_systems(Update, test_spawn_enemy)
+            .add_plugins(DifficultyPlugin)
+            
+            // .add_systems(Update, test_spawn_enemy)
 
             .add_systems(Update, (
                 spawn_default_enemy,
