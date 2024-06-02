@@ -1,4 +1,5 @@
 use std::ops::Deref;
+use std::time::Duration;
 use bevy::prelude::*;
 use rand;
 use rand::Rng;
@@ -8,6 +9,7 @@ use crate::constants::CASUAL_ZOMBIE_HEALTH;
 use crate::gameplay::animations::AddAnimationCommand;
 use crate::gameplay::collisions::components::*;
 use crate::gameplay::enemies::components::{Enemy, EnemyType};
+use crate::gameplay::enemies::difficulty::Difficulty;
 use crate::gameplay::field::Field;
 use crate::gameplay::health::Health;
 use crate::gameplay::movement::MovementSpeed;
@@ -58,13 +60,34 @@ pub fn spawn_default_enemy(
 
 pub fn reset_spawn_enemy_timer(
     mut spawn_enemy_timer: ResMut<SpawnEnemyTimer>,
-) {}
+) {
+    let duration = constants::SPAWN_FIRST_ENEMY_DURATION;
+    spawn_enemy_timer.0.set_duration(Duration::from_secs_f32(duration));
+}
 
 pub fn tick_spawn_enemy_timer(
     mut spawn_enemy_timer: ResMut<SpawnEnemyTimer>,
     time: Res<Time>,
+    mut event: EventWriter<SpawnEnemy>,
+    difficulty: Res<Difficulty>,
 ) {
     spawn_enemy_timer.0.tick(time.delta());
 
-    // if spawn_enemy_timer
+    if spawn_enemy_timer.0.finished() {
+        let mut rng = rand::thread_rng();
+        let chance = rng.gen_range(0.0..=difficulty.0);
+
+        let enemy_type = if chance > 0.0 {
+            EnemyType::Casual
+        } else {
+            EnemyType::Casual
+        };
+
+        event.send(SpawnEnemy(enemy_type));
+
+        let duration = rng.gen_range(constants::SPAWN_ENEMY_DURATION_RANGE);
+        let duration = duration * (1.0 / difficulty.0);
+
+        spawn_enemy_timer.0.set_duration(Duration::from_secs_f32(duration));
+    }
 }

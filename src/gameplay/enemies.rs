@@ -16,10 +16,10 @@ impl Plugin for EnemiesPlugin {
             .add_event::<SpawnEnemy>()
 
             .add_plugins(DifficultyPlugin)
-            .insert_resource(SpawnEnemyTimer(Timer::from_seconds(constants::SPAWN_FIRST_ENEMY_DURATION, TimerMode::Repeating)))
+            .insert_resource(SpawnEnemyTimer(Timer::from_seconds(0.0, TimerMode::Repeating)))
 
-            // .add_systems(OnEnter(), ) 
-            
+            .add_systems(OnEnter(AppState::Gameplay), reset_spawn_enemy_timer)
+
             // .add_systems(Update, test_spawn_enemy)
 
             .add_systems(Update, (
