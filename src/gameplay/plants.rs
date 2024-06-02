@@ -23,6 +23,7 @@ pub struct PlantPreview(pub PlantType);
 pub enum PlantType {
     Fire,
     Money,
+    Lego,
 }
 
 pub struct PlantsPlugin;

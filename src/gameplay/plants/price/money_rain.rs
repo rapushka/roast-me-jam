@@ -1,16 +1,20 @@
 use std::time::Duration;
+
 use bevy::prelude::*;
 use rand::Rng;
+
 use crate::{AppState, constants, OnAppState};
-use crate::controls::{Clickable, Input};
+use crate::controls::Clickable;
 use crate::gameplay::collisions::components::CircleCollider;
 use crate::gameplay::field::Field;
 use crate::gameplay::movement::move_to_target::MoveToTarget;
 use crate::gameplay::movement::MovementSpeed;
-use crate::gameplay::plants::money_plant::SpawnMoneyFromTree;
 use crate::gameplay::plants::price::current_money::CurrentMoney;
+use crate::gameplay::plants::price::money_rain::seed_rain::{DropSeed, SeedRainPlugin};
 use crate::gameplay::plants::time_to_live::TimeToLive;
 use crate::ui::Clicked;
+
+pub mod seed_rain;
 
 #[derive(Event)]
 pub struct DropMoney;
@@ -32,6 +36,8 @@ pub struct MoneyRainPlugin;
 impl Plugin for MoneyRainPlugin {
     fn build(&self, app: &mut App) {
         app
+            .add_plugins(SeedRainPlugin)
+
             .add_event::<DropMoney>()
             .add_event::<SpawnMoney>()
 
@@ -85,11 +91,10 @@ fn tick_money_rain(
 }
 
 fn drop_money_rain(
-    mut commands: Commands,
     mut event: EventReader<DropMoney>,
-    asset_server: Res<AssetServer>,
     field: Res<Field>,
     mut spawn_money_event: EventWriter<SpawnMoney>,
+    mut drop_seed_event: EventWriter<DropSeed>,
 ) {
     for _ in event.read() {
         let mut rng = rand::thread_rng();
@@ -104,10 +109,12 @@ fn drop_money_rain(
         let mut start_position = end_position;
         start_position.y += constants::MONEY_RAIN_DROPLET_OFFSET_Y;
 
-        spawn_money_event.send(SpawnMoney {
-            start_position,
-            end_position,
-        });
+        let proc = rng.gen_range(0.0..=1.0) <= constants::SPAWN_SEED_CHANCE;
+        if !proc {
+            spawn_money_event.send(SpawnMoney { start_position, end_position });
+        } else {
+            drop_seed_event.send(DropSeed { start_position, end_position });
+        }
     }
 }
 

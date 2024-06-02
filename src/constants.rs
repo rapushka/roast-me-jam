@@ -26,6 +26,7 @@ pub const DIFFICULTY_INCREMENT: f32 = 0.02;
 pub const MONEY_RAIN_DROPLET_OFFSET_Y: f32 = 650.0;
 pub const MONEY_FALL_SPEED: f32 = 100.0;
 pub const MONEY_TTL: f32 = 10.0;
+pub const SPAWN_SEED_CHANCE: f32 = 0.1;
 
 // ## Zombie
 pub const CASUAL_ZOMBIE_MOVEMENT_SPEED: Range<f32> = 20.0..50.0;
@@ -45,3 +46,6 @@ pub const MONEY_PLANT_HARVEST: f32 = 6.0;
 pub const MONEY_PLANT_SPAWN_MONEY_X: Range<f32> = -35.0..35.0;
 pub const MONEY_PLANT_SPAWN_MONEY_Y: Range<f32> = 15.0..16.0;
 pub const MONEY_PLANT_SPAWN_MONEY_FALL_DISTANCE: f32 = 50.0;
+
+// ### Lego
+pub const LEGO_PRICE: i32 = 4;
